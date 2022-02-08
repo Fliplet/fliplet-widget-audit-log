@@ -28,7 +28,7 @@ function filterIndex(collection = [], predicate) {
 function formatJSON(json) {
   // Render undefined or null data
   if (typeof json === 'undefined' || json === null) {
-    return '—';
+    return '';
   }
 
   return JSON.stringify(json, null, '\b')
