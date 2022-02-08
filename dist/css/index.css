@@ -131,7 +131,7 @@ body {
     .dataTable .table-responsive td,
     .dataTable .table-responsive th {
       word-wrap: break-word;
-      vertical-align: baseline; }
+      vertical-align: baseline !important; }
     .dataTable .table-responsive tbody tr i {
       display: none; }
     .dataTable .table-responsive tbody tr:hover i {
@@ -140,7 +140,8 @@ body {
       font-family: monospace;
       font-size: 0.9em; }
     .dataTable .table-responsive tbody tr td.nowrap {
-      white-space: nowrap; }
+      white-space: nowrap;
+      overflow: hidden; }
     .dataTable .table-responsive .multiline-cell {
       text-align: center; }
       .dataTable .table-responsive .multiline-cell small {

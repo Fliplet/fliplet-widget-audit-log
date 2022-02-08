@@ -104,7 +104,7 @@
     td,
     th {
       word-wrap: break-word;
-      vertical-align: baseline;
+      vertical-align: baseline !important;
     }
 
     tbody tr {
@@ -123,6 +123,7 @@
 
       td.nowrap {
         white-space: nowrap;
+        overflow: hidden;
       }
     }
 

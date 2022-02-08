@@ -19551,12 +19551,13 @@ var columns = [{
   name: 'Date & time',
   prop: 'createdAt',
   type: 'date',
-  nowrap: true
+  width: 130
 }, {
   name: 'Category',
   prop: 'user.type',
   format: 'code',
-  searchable: true
+  searchable: true,
+  width: 100
 }, {
   name: 'Log type',
   prop: 'type',
