@@ -17471,6 +17471,7 @@ var render = function () {
       {
         ref: "table",
         staticClass: "data-table table-responsive d-print-inline",
+        staticStyle: { width: "100%" },
       },
       [
         _c("thead", [
@@ -17531,6 +17532,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _libs_tracking__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(464);
 /* harmony import */ var _config_sample_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(465);
 /* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(466);
+//
 //
 //
 //
@@ -19562,7 +19564,8 @@ var columns = [{
   name: 'Log type',
   prop: 'type',
   format: 'code',
-  searchable: true
+  searchable: true,
+  width: 250
 }, {
   name: 'App',
   prop: 'app.name',

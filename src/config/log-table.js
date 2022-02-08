@@ -62,7 +62,8 @@ export const columns = [
     name: 'Log type',
     prop: 'type',
     format: 'code',
-    searchable: true
+    searchable: true,
+    width: 250
   },
   {
     name: 'App',
