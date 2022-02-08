@@ -63,7 +63,7 @@ export default {
 
       this.table = $(this.$refs.table).DataTable({
         scrollX: true,
-        dom: 'lfrtip',
+        dom: 'lrtip',
         language: {
           emptyTable: 'No logs found'
         },

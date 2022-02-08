@@ -17598,7 +17598,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.table = $(this.$refs.table).DataTable({
         scrollX: true,
-        dom: 'lfrtip',
+        dom: 'lrtip',
         language: {
           emptyTable: 'No logs found'
         },
