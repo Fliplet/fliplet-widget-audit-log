@@ -1,5 +1,3 @@
-import { getAppId } from '../store';
-
 /**
  * Filter a data collection based on a predicate, returning the matching indices
  * @param {Array} collection - Data collection for processing
@@ -69,8 +67,7 @@ export const columns = [
     name: 'App',
     prop: 'app.name',
     sortProp: 'app.name',
-    searchable: true,
-    visible: !getAppId()
+    searchable: true
   },
   {
     name: 'User',

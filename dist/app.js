@@ -19502,7 +19502,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columnDefs", function() { return columnDefs; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(467);
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(460);
 
 
 /**
@@ -19511,7 +19510,6 @@ __webpack_require__.r(__webpack_exports__);
  * @param {Function|Object} predicate - Predicate used to assess if each data point matches the condition
  * @returns {Array} List of indices where the data point matches the condition
  */
-
 function filterIndex() {
   var collection = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
   var predicate = arguments.length > 1 ? arguments[1] : undefined;
@@ -19568,8 +19566,7 @@ var columns = [{
   name: 'App',
   prop: 'app.name',
   sortProp: 'app.name',
-  searchable: true,
-  visible: !Object(_store__WEBPACK_IMPORTED_MODULE_1__["getAppId"])()
+  searchable: true
 }, {
   name: 'User',
   prop: 'user.email',
