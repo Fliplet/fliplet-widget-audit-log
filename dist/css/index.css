@@ -1,0 +1,140 @@
+body {
+  overflow: hidden;
+  padding: 10px; }
+  body.development {
+    overflow: auto; }
+
+.spinner-holder {
+  margin-top: 200px; }
+  .spinner-holder p {
+    text-align: center; }
+
+.is-loading {
+  opacity: 0.2; }
+
+.range-date-picker {
+  display: flex;
+  justify-content: flex-end;
+  border-radius: 2px;
+  margin-bottom: 10px; }
+  .range-date-picker .daterangepicker {
+    top: 35px; }
+  .range-date-picker .reportrange-text.form-control {
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(51, 51, 51, 0.1); }
+    .range-date-picker .reportrange-text.form-control span {
+      padding: 0 10px; }
+    .range-date-picker .reportrange-text.form-control b {
+      font-size: 10px;
+      border: none;
+      width: auto;
+      height: auto;
+      font-weight: normal;
+      font-family: FontAwesome; }
+      .range-date-picker .reportrange-text.form-control b:before {
+        content: "\f078"; }
+  .range-date-picker .disabled {
+    opacity: 0.7; }
+
+.date-dropdown {
+  background-color: #fff;
+  width: auto;
+  cursor: pointer;
+  margin-right: 15px; }
+
+.dataTable {
+  width: 100%;
+  margin-top: 20px;
+  margin-bottom: 50px;
+  box-sizing: border-box !important;
+  border-collapse: collapse !important; }
+  .dataTable .btn-csv-export {
+    margin-bottom: -34px;
+    float: right;
+    position: relative;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #eae9ec;
+    color: #787993;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 100px;
+    padding: 10px 16px;
+    border-color: #eae9ec;
+    border: none;
+    outline: none;
+    line-height: inherit;
+    z-index: 1; }
+    .dataTable .btn-csv-export:hover {
+      background-color: #474974;
+      color: #fff;
+      border-color: transparent; }
+  .dataTable .dataTables_wrapper .dataTables_filter {
+    display: none; }
+  .dataTable .dataTables_wrapper input {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    font-size: 14px;
+    font-weight: normal;
+    height: 32px;
+    width: 250px;
+    background-color: transparent;
+    margin-bottom: 10px; }
+  .dataTable .dataTables_wrapper .dt-buttons button {
+    float: right;
+    position: relative;
+    top: -4px;
+    text-transform: uppercase;
+    font-size: 12px;
+    font-weight: 700;
+    background-color: #eae9ec;
+    color: #787993;
+    cursor: pointer;
+    user-select: none;
+    border-radius: 100px;
+    padding: 10px 16px;
+    border-color: #eae9ec;
+    border: none;
+    outline: none; }
+    .dataTable .dataTables_wrapper .dt-buttons button:hover {
+      background-color: #474974;
+      color: white;
+      border-color: transparent; }
+  .dataTable .dataTables_wrapper select {
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 2px;
+    height: 34px;
+    margin: 0 10px; }
+  .dataTable .table-responsive {
+    table-layout: fixed;
+    width: 100%; }
+    .dataTable .table-responsive .link {
+      cursor: pointer; }
+    .dataTable .table-responsive .filter {
+      width: 100%;
+      height: 25px;
+      margin-top: 5px;
+      font-size: 12px;
+      padding-left: 5px; }
+    .dataTable .table-responsive tr {
+      background-color: transparent; }
+    .dataTable .table-responsive td,
+    .dataTable .table-responsive th {
+      word-wrap: break-word;
+      vertical-align: baseline; }
+    .dataTable .table-responsive tbody tr i {
+      display: none; }
+    .dataTable .table-responsive tbody tr:hover i {
+      display: inline-block; }
+    .dataTable .table-responsive tbody tr td.code {
+      font-family: monospace;
+      font-size: 0.9em; }
+    .dataTable .table-responsive tbody tr td.nowrap {
+      white-space: nowrap; }
+    .dataTable .table-responsive .multiline-cell {
+      text-align: center; }
+      .dataTable .table-responsive .multiline-cell small {
+        display: block; }

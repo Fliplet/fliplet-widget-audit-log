@@ -1,0 +1,33 @@
+{
+  "name": "Audit log",
+  "package": "com.fliplet.audit-log",
+  "version": "1.0.0",
+  "description": "",
+  "icon": "img/icon.png",
+  "tags": ["category:general", "beta:true"],
+  "provider_only": true,
+  "references": [],
+  "html_tag": "div",
+  "interface": {
+    "dependencies": [
+      "vue.js",
+      "fliplet-core",
+      "fliplet-studio-ui",
+      "font-awesome",
+      "moment",
+      "bootstrap-js",
+      "lodash",
+      "fliplet-media"
+    ],
+    "assets": [
+      "vendor/jquery.dataTables.min.css",
+      "vendor/jquery.dataTables.min.js",
+      "dist/css/index.css",
+      "dist/app.js"
+    ]
+  },
+  "build": {
+    "dependencies": ["fliplet-core"],
+    "assets": []
+  }
+}
