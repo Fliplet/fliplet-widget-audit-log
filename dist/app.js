@@ -17671,7 +17671,7 @@ __webpack_require__.r(__webpack_exports__);
                 break;
             }
           });
-          _this.query.where = _.isEmpty(where) ? undefined : JSON.stringify(where);
+          _this.query.where = _.isEmpty(where) ? undefined : where;
           data.order.forEach(function (order) {
             var col = settings.aoColumns[order.column];
             _this.query.sort = col.sortProp || col.prop;

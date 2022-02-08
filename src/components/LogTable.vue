@@ -111,7 +111,7 @@ export default {
             }
           });
 
-          this.query.where = _.isEmpty(where) ? undefined : JSON.stringify(where);
+          this.query.where = _.isEmpty(where) ? undefined : where;
 
           data.order.forEach(order => {
             const col = settings.aoColumns[order.column];
