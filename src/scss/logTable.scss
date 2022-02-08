@@ -115,14 +115,16 @@
         display: inline-block;
       }
 
-      td.code {
-        font-family: monospace;
-        font-size: 0.9em;
-      }
+      td {
+        &.code {
+          font-family: monospace;
+          font-size: 0.9em;
+        }
 
-      td.nowrap {
-        white-space: nowrap;
-        overflow: hidden;
+        &.nowrap {
+          white-space: nowrap;
+          overflow: hidden;
+        }
       }
     }
 

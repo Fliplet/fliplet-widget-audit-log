@@ -19564,8 +19564,7 @@ var columns = [{
   name: 'Log type',
   prop: 'type',
   format: 'code',
-  searchable: true,
-  width: 250
+  searchable: true
 }, {
   name: 'App',
   prop: 'app.name',
