@@ -12,7 +12,7 @@
       </div>
       <RangeDatePicker></RangeDatePicker>
     </div>
-    <div v-if="isLoading" style="position:fixed;top:10px;left:10px;right:10px;bottom:10px;">
+    <div v-if="isLoading" class="overlay-loading">
       <div class="spinner-holder animated">
         <div class="spinner-overlay"></div>
         <p>Loading...</p>

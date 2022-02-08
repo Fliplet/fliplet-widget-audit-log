@@ -17240,19 +17240,7 @@ var render = function () {
       ),
       _vm._v(" "),
       _vm.isLoading
-        ? _c(
-            "div",
-            {
-              staticStyle: {
-                position: "fixed",
-                top: "10px",
-                left: "10px",
-                right: "10px",
-                bottom: "10px",
-              },
-            },
-            [_vm._m(1)]
-          )
+        ? _c("div", { staticClass: "overlay-loading" }, [_vm._m(1)])
         : _vm.hasError
         ? _c("div", [
             _c("div", { staticClass: "alert alert-danger" }, [
@@ -17483,7 +17471,6 @@ var render = function () {
       {
         ref: "table",
         staticClass: "data-table table-responsive d-print-inline",
-        staticStyle: { width: "100%" },
       },
       [
         _c("thead", [

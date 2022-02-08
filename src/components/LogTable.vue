@@ -1,7 +1,7 @@
 <template>
   <div class="dataTable">
     <span v-if="this.tableData.data.length" class="btn btn-csv-export" @click="getCSV()">Export to CSV</span>
-    <table ref="table" class="data-table table-responsive d-print-inline" style="width:100%">
+    <table ref="table" class="data-table table-responsive d-print-inline">
       <thead>
         <tr>
           <th v-for="(col, colIndex) in columns" :key="colIndex">
