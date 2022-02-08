@@ -117,7 +117,7 @@ body {
     margin: 0 10px; }
   .dataTable .table-responsive {
     table-layout: fixed;
-    width: 100%; }
+    width: 100% !important; }
     .dataTable .table-responsive .link {
       cursor: pointer; }
     .dataTable .table-responsive .filter {
