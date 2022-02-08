@@ -17386,6 +17386,9 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     this.init();
+    $(window).on('resize', function () {
+      Fliplet.Widget.autosize();
+    });
     Fliplet.Widget.autosize();
   },
   updated: function updated() {

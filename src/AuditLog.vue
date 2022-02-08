@@ -77,6 +77,10 @@ export default {
   mounted() {
     this.init();
 
+    $(window).on('resize', () => {
+      Fliplet.Widget.autosize();
+    });
+
     Fliplet.Widget.autosize();
   },
   updated() {
