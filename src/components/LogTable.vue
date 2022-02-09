@@ -29,6 +29,7 @@ import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import sampleData from '../config/sample-data';
 import { columns, columnDefs } from '../config/log-table';
+import { getUserTypeQuery } from '../libs/logs';
 
 export default {
   data() {
@@ -51,7 +52,8 @@ export default {
         limit: 25,
         offset: 0,
         includePagination: true,
-        where: null
+        where: null,
+        userType: []
       }
     };
   },
@@ -82,16 +84,23 @@ export default {
           const where = {};
 
           data.columns.forEach((col) => {
-            if (!col.searchable || !col.search.value) {
+            if (!col.searchable) {
               return;
             }
 
             var value = col.search.value;
 
+            if (col.name === 'Category') {
+              // Assign userType query regardless of value
+              this.$set(this.query, 'userType', getUserTypeQuery(value));
+            }
+
+            // No need to assign where queries if value is empty
+            if (!value || !value.trim()) {
+              return;
+            }
+
             switch (col.name) {
-              case 'Category':
-                where.user = { type: { $iLike: `%${value}%` } };
-                break;
               case 'Log type':
                 where.type = { $iLike: `%${value}%` };
                 break;

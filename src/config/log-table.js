@@ -23,7 +23,7 @@ function filterIndex(collection = [], predicate) {
 /**
  * Stringify JSON objects and add spaces as necessary to match the DB literal search conditions
  * @param {Object} json - JSON data to be formatted
- * @returns {String} JSON string
+ * @returns {String} Formatted JSON string
  */
 function formatJSON(json) {
   // Render undefined or null data
@@ -54,9 +54,11 @@ export const columns = [
   {
     name: 'Category',
     prop: 'user.type',
+    sortProp: 'userType',
     format: 'code',
     searchable: true,
-    width: 100
+    width: 100,
+    orderable: false
   },
   {
     name: 'Log type',
