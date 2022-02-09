@@ -54,7 +54,6 @@ export const columns = [
   {
     name: 'Category',
     prop: 'user.type',
-    sortProp: 'userType',
     format: 'code',
     searchable: true,
     width: 100,
