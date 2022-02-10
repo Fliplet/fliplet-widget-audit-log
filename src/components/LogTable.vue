@@ -7,10 +7,16 @@
         <tr>
           <th v-for="(col, colIndex) in columns" :key="colIndex">
             {{ col.name }}
+            <select
+              class="filter"
+              v-if="col.name === 'Category'"
+              @change="onChange($event, colIndex)">
+              <option v-for="type in userTypes" :key="type.value" :value="type.value">{{ type.label }}</option>
+            </select>
             <input
-              v-if="col.searchable"
+              v-else-if="col.searchable"
               @click.stop
-              @input="onInput($event, colIndex)"
+              @input="onChange($event, colIndex)"
               @keydown="onKeydown($event)"
               type="text"
               class="filter" />
@@ -28,7 +34,8 @@ import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import sampleData from '../config/sample-data';
-import { columns, columnDefs } from '../config/log-table';
+import { columns, columnDefs, userTypes } from '../config/log-table';
+import { getUserTypeQuery } from '../libs/logs';
 
 export default {
   data() {
@@ -41,6 +48,7 @@ export default {
         data: [],
         count: 0
       },
+      userTypes,
       columns,
       limits: [25, 50, 100, 500],
       query: {
@@ -51,7 +59,8 @@ export default {
         limit: 25,
         offset: 0,
         includePagination: true,
-        where: null
+        where: null,
+        userType: []
       }
     };
   },
@@ -82,16 +91,23 @@ export default {
           const where = {};
 
           data.columns.forEach((col) => {
-            if (!col.searchable || !col.search.value) {
+            if (!col.searchable) {
               return;
             }
 
             var value = col.search.value;
 
+            if (col.name === 'Category') {
+              // Assign userType query regardless of value
+              this.$set(this.query, 'userType', getUserTypeQuery(value));
+            }
+
+            // No need to assign where queries if value is empty
+            if (!value || !value.trim()) {
+              return;
+            }
+
             switch (col.name) {
-              case 'Category':
-                where.user = { type: { $iLike: `%${value}%` } };
-                break;
               case 'Log type':
                 where.type = { $iLike: `%${value}%` };
                 break;
@@ -230,7 +246,7 @@ export default {
 
       this.table.ajax.reload();
     },
-    onInput(event, colIndex) {
+    onChange(event, colIndex) {
       this.debouncedFilter(event, colIndex);
     },
     onKeydown(event) {

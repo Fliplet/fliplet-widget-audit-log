@@ -78,7 +78,8 @@ body {
       background-color: #474974;
       color: #fff;
       border-color: transparent; }
-  .dataTable .dataTables_wrapper input {
+  .dataTable .dataTables_wrapper input,
+  .dataTable .dataTables_wrapper select {
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     font-size: 14px;
@@ -87,7 +88,7 @@ body {
     width: 250px;
     background-color: transparent;
     margin-bottom: 10px; }
-  .dataTable .dataTables_wrapper select {
+  .dataTable .dataTables_wrapper .dataTables_length select {
     background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
