@@ -46,15 +46,14 @@ function formatJSON(json) {
 
 export const userTypes = [
   { value: '', label: 'All categories' },
-  { value: 'app', label: 'Apps' },
+  { value: 'app', label: 'Apps/Integrations' },
   { value: 'appAction', label: 'App Actions' },
-  { value: 'studio', label: 'Fliplet Studio/Viewer' },
-  { value: 'integration', label: 'Integration' }
+  { value: 'studio', label: 'Fliplet Studio/Viewer' }
 ];
 
 export const columns = [
   {
-    name: 'Date & time',
+    name: 'Date',
     prop: 'createdAt',
     type: 'date',
     width: 130
@@ -63,7 +62,7 @@ export const columns = [
     name: 'Category',
     prop: 'user.type',
     searchable: true,
-    width: 100,
+    width: 130,
     orderable: false
   },
   {

@@ -19598,19 +19598,16 @@ var userTypes = [{
   label: 'All categories'
 }, {
   value: 'app',
-  label: 'Apps'
+  label: 'Apps/Integrations'
 }, {
   value: 'appAction',
   label: 'App Actions'
-}, {
-  value: 'integration',
-  label: 'DIS integration'
 }, {
   value: 'studio',
   label: 'Fliplet Studio/Viewer'
 }];
 var columns = [{
-  name: 'Date & time',
+  name: 'Date',
   prop: 'createdAt',
   type: 'date',
   width: 130
@@ -19618,7 +19615,7 @@ var columns = [{
   name: 'Category',
   prop: 'user.type',
   searchable: true,
-  width: 100,
+  width: 130,
   orderable: false
 }, {
   name: 'Log type',

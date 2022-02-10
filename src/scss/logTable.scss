@@ -44,6 +44,10 @@
       margin-bottom: 10px;
     }
 
+    select {
+      padding-left: 2px !important;
+    }
+
     .dataTables_length select {
       background-color: transparent;
       border: 1px solid rgba(0, 0, 0, 0.1);

@@ -88,6 +88,8 @@ body {
     width: 250px;
     background-color: transparent;
     margin-bottom: 10px; }
+  .dataTable .dataTables_wrapper select {
+    padding-left: 2px !important; }
   .dataTable .dataTables_wrapper .dataTables_length select {
     background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
