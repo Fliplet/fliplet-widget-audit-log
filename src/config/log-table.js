@@ -48,8 +48,8 @@ export const userTypes = [
   { value: '', label: 'All categories' },
   { value: 'app', label: 'Apps' },
   { value: 'appAction', label: 'App Actions' },
-  { value: 'integration', label: 'DIS integration' },
-  { value: 'studio', label: 'Fliplet Studio/Viewer' }
+  { value: 'studio', label: 'Fliplet Studio/Viewer' },
+  { value: 'integration', label: 'Integration' }
 ];
 
 export const columns = [
