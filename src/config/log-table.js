@@ -143,9 +143,12 @@ export const columnDefs = [
       return `<div data-json>
                 <div class="clamped">${jsonStr}</div>
                 <div class="full">${jsonStr}</div>
-                <div class="toggle">
-                  <span class="btn-toggle label label-default show-more"><i class="fa fa-chevron-down"></i></span>
-                  <span class="btn-toggle label label-default show-less"><i class="fa fa-chevron-up"></i></span>
+                <div class="toolbar">
+                  <span class="toggle">
+                    <span class="btn-toggle label label-default show-more" title="Expand"><i class="fa fa-chevron-down"></i></span>
+                    <span class="btn-toggle label label-default show-less" title="Collapse"><i class="fa fa-chevron-up"></i></span>
+                  </span>
+                  <span class="btn-inspect label label-default" title="Inspect"><i class="fa fa-eye"></i></span>
                 </div>
               </div>`;
     }

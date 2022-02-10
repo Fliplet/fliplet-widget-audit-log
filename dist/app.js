@@ -17840,7 +17840,7 @@ __webpack_require__.r(__webpack_exports__);
       var debouncedClamp = _.debounce(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["clampJSONData"], 300);
 
       $(window).on('resize', debouncedClamp);
-      $(document).on('click', '[data-json] .toggle .btn-toggle', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["toggleClamping"]);
+      $(document).on('click', '[data-json] .btn-toggle', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["toggleClamping"]).on('click', '[data-json] .btn-inspect', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["inspectData"]);
     }
   },
   created: function created() {
@@ -18890,7 +18890,7 @@ var columnDefs = [{
       return '';
     }
 
-    return "<div data-json>\n                <div class=\"clamped\">".concat(jsonStr, "</div>\n                <div class=\"full\">").concat(jsonStr, "</div>\n                <div class=\"toggle\">\n                  <span class=\"btn-toggle label label-default show-more\"><i class=\"fa fa-chevron-down\"></i></span>\n                  <span class=\"btn-toggle label label-default show-less\"><i class=\"fa fa-chevron-up\"></i></span>\n                </div>\n              </div>");
+    return "<div data-json>\n                <div class=\"clamped\">".concat(jsonStr, "</div>\n                <div class=\"full\">").concat(jsonStr, "</div>\n                <div class=\"toolbar\">\n                  <span class=\"toggle\">\n                    <span class=\"btn-toggle label label-default show-more\" title=\"Expand\"><i class=\"fa fa-chevron-down\"></i></span>\n                    <span class=\"btn-toggle label label-default show-less\" title=\"Collapse\"><i class=\"fa fa-chevron-up\"></i></span>\n                  </span>\n                  <span class=\"btn-inspect label label-default\" title=\"Inspect\"><i class=\"fa fa-eye\"></i></span>\n                </div>\n              </div>");
   }
 }, {
   targets: filterIndex(columns, {
@@ -18929,6 +18929,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserTypeQuery", function() { return getUserTypeQuery; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clampJSONData", function() { return clampJSONData; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleClamping", function() { return toggleClamping; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "inspectData", function() { return inspectData; });
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(466);
@@ -18969,7 +18970,24 @@ var clampJSONData = function clampJSONData() {
   });
 };
 var toggleClamping = function toggleClamping(e) {
-  e.currentTarget.parentNode.parentNode.classList.toggle('show-full');
+  $(e.currentTarget).parents('[data-json]').toggleClass('show-full');
+};
+var inspectData = function inspectData(e) {
+  var jsonStr = $(e.currentTarget).parents('[data-json]').find('.full').html();
+  jsonStr = $('<div></div>').html(jsonStr).text();
+
+  try {
+    var json = JSON.parse(jsonStr);
+    Fliplet.Modal.alert({
+      title: 'Log data',
+      message: "<pre>".concat(JSON.stringify(json, null, 2), "</pre>")
+    });
+  } catch (error) {
+    Fliplet.Modal.alert({
+      title: 'Error parsing JSON data',
+      message: Fliplet.parseError(error)
+    });
+  }
 };
 
 /***/ }),

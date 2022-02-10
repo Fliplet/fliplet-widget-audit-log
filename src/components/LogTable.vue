@@ -35,7 +35,7 @@ import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import sampleData from '../config/sample-data';
 import { columns, columnDefs, userTypes } from '../config/log-table';
-import { getUserTypeQuery, clampJSONData, toggleClamping } from '../libs/logs';
+import { getUserTypeQuery, clampJSONData, toggleClamping, inspectData } from '../libs/logs';
 
 export default {
   data() {
@@ -260,7 +260,9 @@ export default {
       const debouncedClamp = _.debounce(clampJSONData, 300);
 
       $(window).on('resize', debouncedClamp);
-      $(document).on('click', '[data-json] .toggle .btn-toggle', toggleClamping);
+      $(document)
+        .on('click', '[data-json] .btn-toggle', toggleClamping)
+        .on('click', '[data-json] .btn-inspect', inspectData);
     }
   },
   created() {

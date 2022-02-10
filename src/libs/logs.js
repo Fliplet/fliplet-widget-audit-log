@@ -33,5 +33,25 @@ export const clampJSONData = () => {
 };
 
 export const toggleClamping = (e) => {
-  e.currentTarget.parentNode.parentNode.classList.toggle('show-full');
+  $(e.currentTarget).parents('[data-json]').toggleClass('show-full');
+};
+
+export const inspectData = (e) => {
+  var jsonStr = $(e.currentTarget).parents('[data-json]').find('.full').html();
+
+  jsonStr = $('<div></div>').html(jsonStr).text();
+
+  try {
+    var json = JSON.parse(jsonStr);
+
+    Fliplet.Modal.alert({
+      title: 'Log data',
+      message: `<pre>${JSON.stringify(json, null, 2)}</pre>`
+    });
+  } catch (error) {
+    Fliplet.Modal.alert({
+      title: 'Error parsing JSON data',
+      message: Fliplet.parseError(error)
+    });
+  }
 };
