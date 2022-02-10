@@ -17225,7 +17225,15 @@ var render = function () {
               ),
               _c(
                 "a",
-                { attrs: { href: "#" }, on: { click: _vm.openChatOverlay } },
+                {
+                  attrs: { href: "#" },
+                  on: {
+                    click: function ($event) {
+                      $event.preventDefault()
+                      return _vm.openChatOverlay.apply(null, arguments)
+                    },
+                  },
+                },
                 [_vm._v("contact us")]
               ),
               _vm._v(".\n      "),
