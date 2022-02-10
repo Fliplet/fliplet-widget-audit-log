@@ -176,7 +176,7 @@ export default {
         return new Promise(resolve => {
           setTimeout(() => {
             resolve(sampleData);
-          }, 1000);
+          }, 300);
         });
       }
 

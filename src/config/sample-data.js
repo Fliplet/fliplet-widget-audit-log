@@ -1,1667 +1,724 @@
 const sampleData = {
   logs: [
     {
-      id: 1057,
-      type: 'dataSource.entry.create',
-      data: null,
-      requestId: 'f08dd6a0-85cd-11ec-928d-c7e6fd98f0c9',
-      createdAt: '2022-02-04T15:20:09.265Z',
-      updatedAt: '2022-02-04T15:20:09.265Z',
-      sessionId: 20,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: 23484826,
-      dataSourceId: 455693,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: {
-        permissions: 'crudq',
-        name: 'User data'
-      },
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A data source entry was created'
-    },
-    {
-      id: 1012,
-      type: 'app.page.settings.update',
+      id: 5498,
+      type: 'studio.analytics.presence',
       data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'd495cde0-85cd-11ec-ac64-412bc48f6024',
-      createdAt: '2022-02-04T15:19:22.331Z',
-      updatedAt: '2022-02-04T15:19:22.331Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 991,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'bad7fdb0-85cd-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:18:39.135Z',
-      updatedAt: '2022-02-04T15:18:39.135Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 988,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'b8a53f30-85cd-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:18:35.456Z',
-      updatedAt: '2022-02-04T15:18:35.456Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 985,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'b419eab0-85cd-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:18:27.828Z',
-      updatedAt: '2022-02-04T15:18:27.828Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 983,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'b24ec7a0-85cd-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:18:24.821Z',
-      updatedAt: '2022-02-04T15:18:24.821Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 975,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'b02cd200-85cd-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:18:21.247Z',
-      updatedAt: '2022-02-04T15:18:21.247Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 972,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'acc38f50-85cd-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:18:15.526Z',
-      updatedAt: '2022-02-04T15:18:15.526Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 954,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '8db60930-85cd-11ec-b3d2-4d9a922e8823',
-      createdAt: '2022-02-04T15:17:23.417Z',
-      updatedAt: '2022-02-04T15:17:23.417Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 940,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '81f093e0-85cd-11ec-928d-c7e6fd98f0c9',
-      createdAt: '2022-02-04T15:17:03.669Z',
-      updatedAt: '2022-02-04T15:17:03.669Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 939,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '81d1c140-85cd-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:17:03.467Z',
-      updatedAt: '2022-02-04T15:17:03.467Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 936,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '7f066c40-85cd-11ec-928d-c7e6fd98f0c9',
-      createdAt: '2022-02-04T15:16:58.822Z',
-      updatedAt: '2022-02-04T15:16:58.822Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 926,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '7885d770-85cd-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:16:47.878Z',
-      updatedAt: '2022-02-04T15:16:47.878Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 924,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '755b2460-85cd-11ec-928d-c7e6fd98f0c9',
-      createdAt: '2022-02-04T15:16:42.575Z',
-      updatedAt: '2022-02-04T15:16:42.575Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 923,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '74336d40-85cd-11ec-ac64-412bc48f6024',
-      createdAt: '2022-02-04T15:16:40.640Z',
-      updatedAt: '2022-02-04T15:16:40.640Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 920,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '6e5ecfe0-85cd-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:16:30.837Z',
-      updatedAt: '2022-02-04T15:16:30.837Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 914,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '6a153f50-85cd-11ec-b3d2-4d9a922e8823',
-      createdAt: '2022-02-04T15:16:23.641Z',
-      updatedAt: '2022-02-04T15:16:23.641Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 909,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '66f3db10-85cd-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:16:18.417Z',
-      updatedAt: '2022-02-04T15:16:18.417Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 908,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '65d5e7f0-85cd-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:16:16.514Z',
-      updatedAt: '2022-02-04T15:16:16.514Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 898,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '5ee0bf60-85cd-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:16:04.841Z',
-      updatedAt: '2022-02-04T15:16:04.841Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 895,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '5e3ae270-85cd-11ec-ac64-412bc48f6024',
-      createdAt: '2022-02-04T15:16:03.792Z',
-      updatedAt: '2022-02-04T15:16:03.792Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 881,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '5718b670-85cd-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:15:51.787Z',
-      updatedAt: '2022-02-04T15:15:51.787Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 880,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '5512fb60-85cd-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:15:48.407Z',
-      updatedAt: '2022-02-04T15:15:48.407Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 878,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '53061460-85cd-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:15:44.955Z',
-      updatedAt: '2022-02-04T15:15:44.955Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 734,
-      type: 'dataSource.entry.create',
-      data: null,
-      requestId: '00e28d80-85cd-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:13:27.151Z',
-      updatedAt: '2022-02-04T15:13:27.151Z',
-      sessionId: 20,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: 23484529,
-      dataSourceId: 455693,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: {
-        permissions: 'crudq',
-        name: 'User data'
-      },
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A data source entry was created'
-    },
-    {
-      id: 728,
-      type: 'app.settings.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'f65d6060-85cc-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:13:09.712Z',
-      updatedAt: '2022-02-04T15:13:09.712Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'App settings were updated'
-    },
-    {
-      id: 725,
-      type: 'app.settings.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'f46b5460-85cc-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:13:06.254Z',
-      updatedAt: '2022-02-04T15:13:06.254Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'App settings were updated'
-    },
-    {
-      id: 715,
-      type: 'app.settings.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'ee3b0270-85cc-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:12:55.876Z',
-      updatedAt: '2022-02-04T15:12:55.876Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'App settings were updated'
-    },
-    {
-      id: 710,
-      type: 'app.settings.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'ed7e6930-85cc-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:12:54.657Z',
-      updatedAt: '2022-02-04T15:12:54.657Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'App settings were updated'
-    },
-    {
-      id: 705,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'e93092e0-85cc-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:12:47.396Z',
-      updatedAt: '2022-02-04T15:12:47.396Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 700,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'e672d270-85cc-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:12:42.808Z',
-      updatedAt: '2022-02-04T15:12:42.808Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 626,
-      type: 'dataSource.entry.create',
-      data: null,
-      requestId: 'd6e72d60-85cc-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:12:16.724Z',
-      updatedAt: '2022-02-04T15:12:16.724Z',
-      sessionId: 20,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: 23484525,
-      dataSourceId: 455693,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: {
-        permissions: 'crudq',
-        name: 'User data'
-      },
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A data source entry was created'
-    },
-    {
-      id: 530,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'c447dfb0-85cc-11ec-ac64-412bc48f6024',
-      createdAt: '2022-02-04T15:11:45.544Z',
-      updatedAt: '2022-02-04T15:11:45.544Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 508,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'be7f2930-85cc-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:11:35.776Z',
-      updatedAt: '2022-02-04T15:11:35.776Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 310,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '8841a9b0-85cc-11ec-88eb-b3711e576c99',
-      createdAt: '2022-02-04T15:10:04.770Z',
-      updatedAt: '2022-02-04T15:10:04.770Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 303,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '86983f70-85cc-11ec-b3d2-4d9a922e8823',
-      createdAt: '2022-02-04T15:10:01.984Z',
-      updatedAt: '2022-02-04T15:10:01.984Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 200,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '6b951e00-85cc-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:09:16.668Z',
-      updatedAt: '2022-02-04T15:09:16.668Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 113,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '4ef53c80-85cc-11ec-928d-c7e6fd98f0c9',
-      createdAt: '2022-02-04T15:08:28.698Z',
-      updatedAt: '2022-02-04T15:08:28.698Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 104,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '4d227850-85cc-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:08:25.577Z',
-      updatedAt: '2022-02-04T15:08:25.577Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 92,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '494257f0-85cc-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:08:19.074Z',
-      updatedAt: '2022-02-04T15:08:19.074Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 59,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '3edb8840-85cc-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:08:01.631Z',
-      updatedAt: '2022-02-04T15:08:01.631Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 842,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '077196b0-85cc-11ec-b3d2-4d9a922e8823',
-      createdAt: '2022-02-04T15:06:28.659Z',
-      updatedAt: '2022-02-04T15:06:28.659Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 839,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '066815f0-85cc-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:06:26.922Z',
-      updatedAt: '2022-02-04T15:06:26.922Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 832,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '044becb0-85cc-11ec-b3d2-4d9a922e8823',
-      createdAt: '2022-02-04T15:06:23.379Z',
-      updatedAt: '2022-02-04T15:06:23.379Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 824,
-      type: 'app.page.settings.update',
-      data: {
-        page: {
-          id: 863,
-          title: 'Sample screen'
-        },
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: '02ffbda0-85cc-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:06:21.213Z',
-      updatedAt: '2022-02-04T15:06:21.213Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A screen settings were updated'
-    },
-    {
-      id: 765,
-      type: 'app.page.widget.update',
-      data: {
-        pageId: 423529,
-        _userEmail: 'j.doe@example.com',
-        widgetInstanceId: 24478
-      },
-      requestId: 'f3d6aaf0-85cb-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:05:56.432Z',
-      updatedAt: '2022-02-04T15:05:56.432Z',
-      sessionId: 77,
-      userId: 66,
-      appId: 10,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: null,
-      appNotificationId: null,
-      app: {
-        name: ' Sample app 2'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.doe@example.com',
-        firstName: 'Jane',
-        lastName: 'Doe'
-      },
-      typeDescription: 'A screen component was updated'
-    },
-    {
-      id: 684,
-      type: 'dataSource.entry.create',
-      data: null,
-      requestId: 'e4ffd6f0-85cb-11ec-befb-c3353e724d9c',
-      createdAt: '2022-02-04T15:05:30.887Z',
-      updatedAt: '2022-02-04T15:05:30.887Z',
-      sessionId: 20,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: 23484514,
-      dataSourceId: 455693,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: {
-        permissions: 'crudq',
-        name: 'User data'
-      },
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'A data source entry was created'
-    },
-    {
-      id: 518,
-      type: 'app.settings.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'customJS'
-        ]
-      },
-      requestId: 'c569bfe0-85cb-11ec-91f0-3f2d8f0004f9',
-      createdAt: '2022-02-04T15:04:37.914Z',
-      updatedAt: '2022-02-04T15:04:37.914Z',
-      sessionId: 362,
-      userId: 246,
-      appId: 44,
-      dataSourceEntryId: null,
-      dataSourceId: null,
-      organizationId: 45,
-      appNotificationId: null,
-      app: {
-        name: 'Sample app'
-      },
-      dataSource: null,
-      user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
-      },
-      typeDescription: 'App settings were updated'
-    },
-    {
-      id: 434,
-      type: 'dataSource.update',
-      data: {
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'definition'
-        ]
-      },
-      requestId: 'a7dfa570-85cb-11ec-8e94-efdb03c49d77',
-      createdAt: '2022-02-04T15:03:48.352Z',
-      updatedAt: '2022-02-04T15:03:48.352Z',
-      sessionId: 20,
-      userId: 246,
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: 'c7a28f04-57fa-24b3-ea6b-e21c81198344'
+      },
+      requestId: '17da02a0-8a6b-11ec-ad04-bf7ec982c3a3',
+      createdAt: '2022-02-10T12:15:10.870Z',
+      updatedAt: '2022-02-10T12:15:10.870Z',
+      sessionId: 422,
+      userId: 1,
       appId: null,
       dataSourceEntryId: null,
-      dataSourceId: 450245,
+      dataSourceId: null,
       organizationId: null,
       appNotificationId: null,
       app: null,
-      dataSource: {
-        permissions: 'crudq',
-        name: 'Content'
-      },
+      dataSource: null,
       user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
       },
-      typeDescription: 'The settings of a data source (including access rules) were changed'
+      typeDescription: 'User has accessed Studio'
     },
     {
-      id: 433,
-      type: 'dataSource.commit',
+      id: 5497,
+      type: 'studio.analytics.presence',
       data: {
-        entries: 14,
-        _userEmail: 'j.appleseed@example.com',
-        attributes: [
-          'entries',
-          'columns'
-        ]
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '47cff80f-13e8-6d05-d592-2fde0d07c415'
       },
-      requestId: 'a7c3e010-85cb-11ec-a55f-35a2721b581b',
-      createdAt: '2022-02-04T15:03:48.178Z',
-      updatedAt: '2022-02-04T15:03:48.178Z',
-      sessionId: 20,
-      userId: 246,
+      requestId: 'b198ba80-8a61-11ec-ad89-45c5c6135439',
+      createdAt: '2022-02-10T11:07:53.894Z',
+      updatedAt: '2022-02-10T11:07:53.894Z',
+      sessionId: 422,
+      userId: 1,
       appId: null,
       dataSourceEntryId: null,
-      dataSourceId: 450245,
+      dataSourceId: null,
       organizationId: null,
       appNotificationId: null,
       app: null,
-      dataSource: {
-        permissions: 'crudq',
-        name: 'Content'
-      },
+      dataSource: null,
       user: {
-        email: 'j.appleseed@example.com',
-        firstName: 'John',
-        lastName: 'Appleseed'
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
       },
-      typeDescription: 'A data source entries were changed via the data source manager or DIS'
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5496,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '788c87d0-b868-732a-239f-c0236467f54f'
+      },
+      requestId: 'e9e6b4a0-89cb-11ec-85ff-a35d601cbfe9',
+      createdAt: '2022-02-09T17:15:43.768Z',
+      updatedAt: '2022-02-09T17:15:43.768Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5495,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: 'fe4de09d-12c0-a3b0-003a-9e858d1a2354'
+      },
+      requestId: '85a44a90-8992-11ec-9777-edd2ef7e0442',
+      createdAt: '2022-02-09T10:24:54.298Z',
+      updatedAt: '2022-02-09T10:24:54.298Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5494,
+      type: 'user.logout',
+      data: null,
+      requestId: '52f20ff0-892a-11ec-a928-31331f3968ba',
+      createdAt: '2022-02-08T21:59:01.565Z',
+      updatedAt: '2022-02-08T21:59:01.565Z',
+      sessionId: 425,
+      userId: 2,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'studio'
+      },
+      typeDescription: 'User logs out'
+    },
+    {
+      id: 5493,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: 'dd7673f3-d778-afbd-9d04-e56118dfa96f'
+      },
+      requestId: '776e6660-8922-11ec-a482-f1e9fa2287a8',
+      createdAt: '2022-02-08T21:02:46.999Z',
+      updatedAt: '2022-02-08T21:02:46.999Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5492,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '5e0d53e5-c75e-c866-c425-bae78c6602d5'
+      },
+      requestId: 'b70eed10-8915-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T19:31:30.129Z',
+      updatedAt: '2022-02-08T19:31:30.129Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5491,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '1400f3c2-8664-b4e7-3c98-193d3eaadc2a'
+      },
+      requestId: 'd49d0350-890e-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T18:42:13.165Z',
+      updatedAt: '2022-02-08T18:42:13.165Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5490,
+      type: 'user.logout',
+      data: null,
+      requestId: '5affcce0-8908-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T17:55:52.167Z',
+      updatedAt: '2022-02-08T17:55:52.167Z',
+      sessionId: 424,
+      userId: 2,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'studio'
+      },
+      typeDescription: 'User logs out'
+    },
+    {
+      id: 5489,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'user@fliplet.com',
+        _analyticsSessionId: '48abf0d7-b5d6-e99c-f900-8633b19d6ca4'
+      },
+      requestId: '474969e0-8908-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T17:55:19.072Z',
+      updatedAt: '2022-02-08T17:55:19.072Z',
+      sessionId: 424,
+      userId: 2,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5488,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: 'ac8247e0-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:53:43.377Z',
+      updatedAt: '2022-02-08T16:53:43.440Z',
+      sessionId: 424,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5487,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 186,
+        _platform: 'web',
+        _pageTitle: 'Audio player',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: 'a1dc4c50-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:53:25.500Z',
+      updatedAt: '2022-02-08T16:53:25.636Z',
+      sessionId: 424,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5486,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: '65b743b0-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:51:44.607Z',
+      updatedAt: '2022-02-08T16:51:44.709Z',
+      sessionId: 424,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5485,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: '470f5d30-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:50:53.179Z',
+      updatedAt: '2022-02-08T16:50:53.242Z',
+      sessionId: 424,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5484,
+      type: 'user.logout',
+      data: null,
+      requestId: '2ed65840-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:50:12.592Z',
+      updatedAt: '2022-02-08T16:50:12.592Z',
+      sessionId: 423,
+      userId: 2,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'studio'
+      },
+      typeDescription: 'User logs out'
+    },
+    {
+      id: 5483,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: '1308bae0-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:49:25.893Z',
+      updatedAt: '2022-02-08T16:49:26.010Z',
+      sessionId: 423,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5482,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '08d692a7-3aae-4341-a7ff-3f389f660c74',
+        _analyticsSessionId: '52ee504c-097c-83a9-cd09-cda7ec6c8631'
+      },
+      requestId: '0b953a90-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:49:13.385Z',
+      updatedAt: '2022-02-08T16:49:13.581Z',
+      sessionId: 423,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5481,
+      type: 'app.analytics.pageView',
+      data: {
+        _os: 'MacIntel',
+        _pageId: 64,
+        _platform: 'web',
+        _pageTitle: 'Log in',
+        _userEmail: 'user@fliplet.com',
+        _deviceTrackingId: '132f249d-d9a3-3c20-a5a2-9ba4e60ddc05',
+        _analyticsSessionId: '37dfe6e1-0f90-56fa-f4e1-78fa4b71b036'
+      },
+      requestId: '07480080-88ff-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:49:06.131Z',
+      updatedAt: '2022-02-08T16:49:06.281Z',
+      sessionId: 423,
+      userId: 2,
+      appId: 13,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: {
+        name: 'My directory'
+      },
+      dataSource: null,
+      user: {
+        email: 'user@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'User',
+        type: 'app'
+      },
+      typeDescription: 'Screen view logged from app'
+    },
+    {
+      id: 5480,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '8d15b120-4333-b413-acd9-cacbd37bf5a9'
+      },
+      requestId: '06147f00-88fe-11ec-a5e2-cfb407b55bc5',
+      createdAt: '2022-02-08T16:41:54.728Z',
+      updatedAt: '2022-02-08T16:41:54.728Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5479,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '7eaf96ec-d51f-d684-a7c5-11983327d306'
+      },
+      requestId: '5eef22c0-88f8-11ec-ad65-83efe4af02c1',
+      createdAt: '2022-02-08T16:01:26.804Z',
+      updatedAt: '2022-02-08T16:01:26.804Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5478,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '4ec96936-d31e-a5e2-1460-eb0e18214ef4'
+      },
+      requestId: '0aca52d0-88e6-11ec-ad65-83efe4af02c1',
+      createdAt: '2022-02-08T13:50:14.695Z',
+      updatedAt: '2022-02-08T13:50:14.695Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5477,
+      type: 'user.login',
+      data: null,
+      requestId: '0f66fb80-88dd-11ec-ad65-83efe4af02c1',
+      createdAt: '2022-02-08T12:45:57.385Z',
+      updatedAt: '2022-02-08T12:45:57.385Z',
+      sessionId: 422,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User logs in'
+    },
+    {
+      id: 5476,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: '0e0eec40-4d31-90f8-a6c9-7da7cc0ad313'
+      },
+      requestId: '57f40260-88da-11ec-b919-e97b70e86c1e',
+      createdAt: '2022-02-08T12:26:30.192Z',
+      updatedAt: '2022-02-08T12:26:30.192Z',
+      sessionId: 421,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5475,
+      type: 'studio.analytics.presence',
+      data: {
+        _userEmail: 'admin@fliplet.com',
+        _analyticsSessionId: 'a98e6008-43b4-ebaf-39e8-bdeabbd9a67f'
+      },
+      requestId: '0f5fd8f0-88c4-11ec-834a-3f47355f72a6',
+      createdAt: '2022-02-08T09:46:59.484Z',
+      updatedAt: '2022-02-08T09:46:59.484Z',
+      sessionId: 421,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: null,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User has accessed Studio'
+    },
+    {
+      id: 5474,
+      type: 'user.login',
+      data: null,
+      requestId: '7e328cc0-8886-11ec-834a-3f47355f72a6',
+      createdAt: '2022-02-08T02:26:17.047Z',
+      updatedAt: '2022-02-08T02:26:17.047Z',
+      sessionId: 421,
+      userId: 1,
+      appId: null,
+      dataSourceEntryId: null,
+      dataSourceId: null,
+      organizationId: 1,
+      appNotificationId: null,
+      app: null,
+      dataSource: null,
+      user: {
+        email: 'admin@fliplet.com',
+        firstName: 'Fliplet',
+        lastName: 'Admin',
+        type: 'studio'
+      },
+      typeDescription: 'User logs in'
     }
   ],
   query: {
     where: {
-      type: {
-        $notIn: [
-          'app.analytics.pageView',
-          'app.analytics.event',
-          'app.view',
-          'app.update',
-          'studio.analytics.presence'
-        ]
+      createdAt: {
+        $gte: '2022-02-03T00:00:00.000Z',
+        $lte: '2022-02-10T12:18:38.430Z'
       }
     },
     offset: 0,
-    limit: 50,
+    limit: 25,
     order: [
       [
         'createdAt',
@@ -1669,10 +726,10 @@ const sampleData = {
       ]
     ]
   },
-  pageCount: 5,
-  pageNumber: 1,
+  totalCount: 42,
+  pageNumber: 0,
   perPage: 25,
-  totalCount: 115
+  pageCount: 2
 };
 
 export default sampleData;
