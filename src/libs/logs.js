@@ -23,3 +23,15 @@ export const getUserTypeQuery = (value = '') => {
 
   return [value];
 };
+
+export const clampJSONData = () => {
+  $('[data-json]').each((i, el) => {
+    const [clamped, full] = el.children;
+
+    el.classList.toggle('is-clamped', full.clientHeight > clamped.clientHeight);
+  });
+};
+
+export const toggleClamping = (e) => {
+  e.target.parentNode.parentNode.classList.toggle('show-full');
+};

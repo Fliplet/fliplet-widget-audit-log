@@ -35,7 +35,7 @@ import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import sampleData from '../config/sample-data';
 import { columns, columnDefs, userTypes } from '../config/log-table';
-import { getUserTypeQuery } from '../libs/logs';
+import { getUserTypeQuery, clampJSONData, toggleClamping } from '../libs/logs';
 
 export default {
   data() {
@@ -152,11 +152,11 @@ export default {
           });
         }
       });
-      this.table.on('draw', function() {
-        setUIIsLoading(false);
-
+      this.table.on('draw', () => {
         // Resize the overlay based on table size
         setTimeout(() => {
+          clampJSONData();
+          setUIIsLoading(false);
           Fliplet.Widget.autosize();
         }, 50);
       });
@@ -165,8 +165,6 @@ export default {
           .search(event.target.value)
           .draw();
       }, 500);
-
-      $(window).trigger('resize');
     },
     getData() {
       setUIIsLoading(true);
@@ -257,10 +255,18 @@ export default {
     },
     selectAll(input) {
       input.select();
+    },
+    attachObservers() {
+      const debouncedClamp = _.debounce(clampJSONData, 300);
+
+      $(window).on('resize', debouncedClamp);
+      $(document).on('click', '[data-json] .toggle .btn-toggle', toggleClamping);
     }
   },
   created() {
     bus.$on('loadData', this.loadData);
+
+    this.attachObservers();
   },
   mounted() {
     this.initTable();

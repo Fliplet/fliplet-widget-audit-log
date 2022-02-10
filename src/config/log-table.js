@@ -134,7 +134,20 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, { type: 'data' }),
     render(data) {
-      return escapeHtml(formatJSON(data));
+      var jsonStr = escapeHtml(formatJSON(data));
+
+      if (!jsonStr) {
+        return '';
+      }
+
+      return `<div data-json>
+                <div class="clamped">${jsonStr}</div>
+                <div class="full">${jsonStr}</div>
+                <div class="toggle">
+                  <span class="btn-toggle label label-default show-more">Show more</span>
+                  <span class="btn-toggle label label-default show-less">Show less</span>
+                </div>
+              </div>`;
     }
   },
   {

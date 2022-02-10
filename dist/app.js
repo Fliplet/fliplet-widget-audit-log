@@ -17149,7 +17149,7 @@ try {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _AuditLog_vue_vue_type_template_id_9f29243c___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(451);
 /* harmony import */ var _AuditLog_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(453);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(469);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(475);
 
 
 
@@ -17317,7 +17317,7 @@ __webpack_require__.r(__webpack_exports__);
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LogTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(455);
-/* harmony import */ var _components_RangeDatePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(470);
+/* harmony import */ var _components_RangeDatePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(476);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(460);
 //
 //
@@ -17412,7 +17412,7 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _LogTable_vue_vue_type_template_id_4063ae1a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(456);
 /* harmony import */ var _LogTable_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(458);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(469);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(475);
 
 
 
@@ -17738,16 +17738,16 @@ __webpack_require__.r(__webpack_exports__);
         }
       });
       this.table.on('draw', function () {
-        Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(false); // Resize the overlay based on table size
-
+        // Resize the overlay based on table size
         setTimeout(function () {
+          Object(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["clampJSONData"])();
+          Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(false);
           Fliplet.Widget.autosize();
         }, 50);
       });
       this.debouncedFilter = _.debounce(function (event, colIndex) {
         _this.table.columns(colIndex).search(event.target.value).draw();
       }, 500);
-      $(window).trigger('resize');
     },
     getData: function getData() {
       Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(true);
@@ -17835,10 +17835,17 @@ __webpack_require__.r(__webpack_exports__);
     },
     selectAll: function selectAll(input) {
       input.select();
+    },
+    attachObservers: function attachObservers() {
+      var debouncedClamp = _.debounce(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["clampJSONData"], 300);
+
+      $(window).on('resize', debouncedClamp);
+      $(document).on('click', '[data-json] .toggle .btn-toggle', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["toggleClamping"]);
     }
   },
   created: function created() {
     _libs_bus__WEBPACK_IMPORTED_MODULE_2__["default"].$on('loadData', this.loadData);
+    this.attachObservers();
   },
   mounted: function mounted() {
     this.initTable();
@@ -18877,7 +18884,13 @@ var columnDefs = [{
     type: 'data'
   }),
   render: function render(data) {
-    return escapeHtml(formatJSON(data));
+    var jsonStr = escapeHtml(formatJSON(data));
+
+    if (!jsonStr) {
+      return '';
+    }
+
+    return "<div data-json>\n                <div class=\"clamped\">".concat(jsonStr, "</div>\n                <div class=\"full\">").concat(jsonStr, "</div>\n                <div class=\"toggle\">\n                  <span class=\"btn-toggle label label-default show-more\">Show more</span>\n                  <span class=\"btn-toggle label label-default show-less\">Show less</span>\n                </div>\n              </div>");
   }
 }, {
   targets: filterIndex(columns, {
@@ -18914,7 +18927,12 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserTypeQuery", function() { return getUserTypeQuery; });
-/* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(466);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "clampJSONData", function() { return clampJSONData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toggleClamping", function() { return toggleClamping; });
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(466);
+
 
 /**
  * Parses a search for user types to return the matching user types for query
@@ -18926,7 +18944,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var getUserTypeQuery = function getUserTypeQuery() {
   var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var allowedUserTypes = _config_log_table__WEBPACK_IMPORTED_MODULE_0__["userTypes"].map(function (type) {
+  var allowedUserTypes = _config_log_table__WEBPACK_IMPORTED_MODULE_1__["userTypes"].map(function (type) {
     return type.value;
   });
   value = "".concat(value).trim().toLowerCase(); // No search string provided
@@ -18941,9 +18959,128 @@ var getUserTypeQuery = function getUserTypeQuery() {
 
   return [value];
 };
+var clampJSONData = function clampJSONData() {
+  $('[data-json]').each(function (i, el) {
+    var _el$children = _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default()(el.children, 2),
+        clamped = _el$children[0],
+        full = _el$children[1];
+
+    el.classList.toggle('is-clamped', full.clientHeight > clamped.clientHeight);
+  });
+};
+var toggleClamping = function toggleClamping(e) {
+  e.target.parentNode.parentNode.classList.toggle('show-full');
+};
 
 /***/ }),
 /* 469 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayWithHoles = __webpack_require__(470);
+
+var iterableToArrayLimit = __webpack_require__(471);
+
+var unsupportedIterableToArray = __webpack_require__(472);
+
+var nonIterableRest = __webpack_require__(474);
+
+function _slicedToArray(arr, i) {
+  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
+}
+
+module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 470 */
+/***/ (function(module, exports) {
+
+function _arrayWithHoles(arr) {
+  if (Array.isArray(arr)) return arr;
+}
+
+module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 471 */
+/***/ (function(module, exports) {
+
+function _iterableToArrayLimit(arr, i) {
+  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
+
+  if (_i == null) return;
+  var _arr = [];
+  var _n = true;
+  var _d = false;
+
+  var _s, _e;
+
+  try {
+    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
+      _arr.push(_s.value);
+
+      if (i && _arr.length === i) break;
+    }
+  } catch (err) {
+    _d = true;
+    _e = err;
+  } finally {
+    try {
+      if (!_n && _i["return"] != null) _i["return"]();
+    } finally {
+      if (_d) throw _e;
+    }
+  }
+
+  return _arr;
+}
+
+module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 472 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var arrayLikeToArray = __webpack_require__(473);
+
+function _unsupportedIterableToArray(o, minLen) {
+  if (!o) return;
+  if (typeof o === "string") return arrayLikeToArray(o, minLen);
+  var n = Object.prototype.toString.call(o).slice(8, -1);
+  if (n === "Object" && o.constructor) n = o.constructor.name;
+  if (n === "Map" || n === "Set") return Array.from(o);
+  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
+}
+
+module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 473 */
+/***/ (function(module, exports) {
+
+function _arrayLikeToArray(arr, len) {
+  if (len == null || len > arr.length) len = arr.length;
+
+  for (var i = 0, arr2 = new Array(len); i < len; i++) {
+    arr2[i] = arr[i];
+  }
+
+  return arr2;
+}
+
+module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 474 */
+/***/ (function(module, exports) {
+
+function _nonIterableRest() {
+  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
+}
+
+module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
+
+/***/ }),
+/* 475 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19050,14 +19187,14 @@ function normalizeComponent (
 
 
 /***/ }),
-/* 470 */
+/* 476 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(471);
-/* harmony import */ var _RangeDatePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(473);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(469);
+/* harmony import */ var _RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(477);
+/* harmony import */ var _RangeDatePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(479);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(475);
 
 
 
@@ -19082,12 +19219,12 @@ component.options.__file = "src/components/RangeDatePicker.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
-/* 471 */
+/* 477 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(472);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(478);
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__["render"]; });
 
 /* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_template_id_bcf7070e___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
@@ -19095,7 +19232,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 /***/ }),
-/* 472 */
+/* 478 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -19168,21 +19305,21 @@ render._withStripped = true
 
 
 /***/ }),
-/* 473 */
+/* 479 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_5_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(474);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_5_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(480);
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_5_0_node_modules_vue_loader_lib_index_js_vue_loader_options_RangeDatePicker_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
-/* 474 */
+/* 480 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(475);
+/* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(469);
 /* harmony import */ var _babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_helpers_slicedToArray__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var vue2_daterange_picker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(481);
 /* harmony import */ var vue2_daterange_picker__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue2_daterange_picker__WEBPACK_IMPORTED_MODULE_1__);
@@ -19338,113 +19475,6 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
 });
 
 /***/ }),
-/* 475 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayWithHoles = __webpack_require__(476);
-
-var iterableToArrayLimit = __webpack_require__(477);
-
-var unsupportedIterableToArray = __webpack_require__(478);
-
-var nonIterableRest = __webpack_require__(480);
-
-function _slicedToArray(arr, i) {
-  return arrayWithHoles(arr) || iterableToArrayLimit(arr, i) || unsupportedIterableToArray(arr, i) || nonIterableRest();
-}
-
-module.exports = _slicedToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 476 */
-/***/ (function(module, exports) {
-
-function _arrayWithHoles(arr) {
-  if (Array.isArray(arr)) return arr;
-}
-
-module.exports = _arrayWithHoles, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 477 */
-/***/ (function(module, exports) {
-
-function _iterableToArrayLimit(arr, i) {
-  var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"];
-
-  if (_i == null) return;
-  var _arr = [];
-  var _n = true;
-  var _d = false;
-
-  var _s, _e;
-
-  try {
-    for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) {
-      _arr.push(_s.value);
-
-      if (i && _arr.length === i) break;
-    }
-  } catch (err) {
-    _d = true;
-    _e = err;
-  } finally {
-    try {
-      if (!_n && _i["return"] != null) _i["return"]();
-    } finally {
-      if (_d) throw _e;
-    }
-  }
-
-  return _arr;
-}
-
-module.exports = _iterableToArrayLimit, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 478 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var arrayLikeToArray = __webpack_require__(479);
-
-function _unsupportedIterableToArray(o, minLen) {
-  if (!o) return;
-  if (typeof o === "string") return arrayLikeToArray(o, minLen);
-  var n = Object.prototype.toString.call(o).slice(8, -1);
-  if (n === "Object" && o.constructor) n = o.constructor.name;
-  if (n === "Map" || n === "Set") return Array.from(o);
-  if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return arrayLikeToArray(o, minLen);
-}
-
-module.exports = _unsupportedIterableToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 479 */
-/***/ (function(module, exports) {
-
-function _arrayLikeToArray(arr, len) {
-  if (len == null || len > arr.length) len = arr.length;
-
-  for (var i = 0, arr2 = new Array(len); i < len; i++) {
-    arr2[i] = arr[i];
-  }
-
-  return arr2;
-}
-
-module.exports = _arrayLikeToArray, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
-/* 480 */
-/***/ (function(module, exports) {
-
-function _nonIterableRest() {
-  throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method.");
-}
-
-module.exports = _nonIterableRest, module.exports.__esModule = true, module.exports["default"] = module.exports;
-
-/***/ }),
 /* 481 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19459,7 +19489,7 @@ module.exports = _nonIterableRest, module.exports.__esModule = true, module.expo
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _DateDropdown_vue_vue_type_template_id_6ade968f___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(483);
 /* harmony import */ var _DateDropdown_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(485);
-/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(469);
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(475);
 
 
 

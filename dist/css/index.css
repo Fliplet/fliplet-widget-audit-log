@@ -121,3 +121,51 @@ body {
     .dataTable .table-responsive tbody tr td.nowrap {
       white-space: nowrap;
       overflow: hidden; }
+    .dataTable .table-responsive tbody tr td [data-json] {
+      position: relative;
+      overflow: hidden; }
+      .dataTable .table-responsive tbody tr td [data-json] .clamped {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden; }
+      .dataTable .table-responsive tbody tr td [data-json] .full {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none; }
+      .dataTable .table-responsive tbody tr td [data-json] .toggle {
+        display: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle {
+        display: block;
+        text-align: right; }
+        .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle {
+          cursor: pointer;
+          user-select: none; }
+        .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle {
+          transition: opacity 0.2s linear;
+          opacity: 0.4; }
+          .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle:hover {
+            opacity: 1 !important; }
+        .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .show-less {
+          display: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped:hover .toggle .btn-toggle {
+        opacity: 0.65; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .clamped {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .full {
+        position: relative;
+        z-index: 0;
+        opacity: 1;
+        pointer-events: all; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .toggle .show-more {
+        display: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .toggle .show-less {
+        display: inline-block; }
