@@ -18779,6 +18779,29 @@ function formatJSON(json) {
     return (str.slice(-1) === ',' ? "".concat(str, " ") : str).replace(/,\n$/, ', ').replace(/\{\n/, '{').replace(/\n\}/, '}').replace(/\[\n/, '[').replace(/\n\]/, ']').replace(/\n$/, '');
   }).join('');
 }
+/**
+ * Escape HTML characters so HTML content can be printed on screen
+ * @param {String} unsafe - String to be escaped
+ * @returns {String} Escaped string
+ */
+
+
+function escapeHtml() {
+  var unsafe = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
+  var escape = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  var exp = new RegExp("[".concat(Object.keys(escape).join(''), "]"), 'g');
+  return unsafe.replace(exp, function (_char) {
+    return escape[_char];
+  });
+}
 
 var userTypes = [{
   value: '',
@@ -18854,7 +18877,7 @@ var columnDefs = [{
     type: 'data'
   }),
   render: function render(data) {
-    return formatJSON(data);
+    return escapeHtml(formatJSON(data));
   }
 }, {
   targets: filterIndex(columns, {

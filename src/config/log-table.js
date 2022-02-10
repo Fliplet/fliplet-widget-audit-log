@@ -44,6 +44,28 @@ function formatJSON(json) {
     ).join('');
 }
 
+/**
+ * Escape HTML characters so HTML content can be printed on screen
+ * @param {String} unsafe - String to be escaped
+ * @returns {String} Escaped string
+ */
+function escapeHtml(unsafe = '') {
+  const escape = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  const exp = new RegExp(`[${Object.keys(escape).join('')}]`, 'g');
+
+  return unsafe.replace(exp, (char) => {
+    return escape[char];
+  });
+}
+
 export const userTypes = [
   { value: '', label: 'All categories' },
   { value: 'app', label: 'Apps/Integrations' },
@@ -112,7 +134,7 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, { type: 'data' }),
     render(data) {
-      return formatJSON(data);
+      return escapeHtml(formatJSON(data));
     }
   },
   {
