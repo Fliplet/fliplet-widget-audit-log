@@ -32,7 +32,8 @@
   }
 
   .dataTables_wrapper {
-    input {
+    input,
+    select {
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 2px;
       font-size: 14px;
@@ -43,7 +44,7 @@
       margin-bottom: 10px;
     }
 
-    select {
+    .dataTables_length select {
       background-color: transparent;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 2px;

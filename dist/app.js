@@ -17483,7 +17483,27 @@ var render = function () {
             _vm._l(_vm.columns, function (col, colIndex) {
               return _c("th", { key: colIndex }, [
                 _vm._v("\n          " + _vm._s(col.name) + "\n          "),
-                col.searchable
+                col.name === "Category"
+                  ? _c(
+                      "select",
+                      {
+                        staticClass: "filter",
+                        on: {
+                          change: function ($event) {
+                            return _vm.onChange($event, colIndex)
+                          },
+                        },
+                      },
+                      _vm._l(_vm.userTypes, function (type) {
+                        return _c(
+                          "option",
+                          { key: type.value, domProps: { value: type.value } },
+                          [_vm._v(_vm._s(type.label))]
+                        )
+                      }),
+                      0
+                    )
+                  : col.searchable
                   ? _c("input", {
                       staticClass: "filter",
                       attrs: { type: "text" },
@@ -17492,7 +17512,7 @@ var render = function () {
                           $event.stopPropagation()
                         },
                         input: function ($event) {
-                          return _vm.onInput($event, colIndex)
+                          return _vm.onChange($event, colIndex)
                         },
                         keydown: function ($event) {
                           return _vm.onKeydown($event)
@@ -17559,6 +17579,12 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
@@ -17579,6 +17605,7 @@ __webpack_require__.r(__webpack_exports__);
         data: [],
         count: 0
       },
+      userTypes: _config_log_table__WEBPACK_IMPORTED_MODULE_5__["userTypes"],
       columns: _config_log_table__WEBPACK_IMPORTED_MODULE_5__["columns"],
       limits: [25, 50, 100, 500],
       query: {
@@ -17789,7 +17816,7 @@ __webpack_require__.r(__webpack_exports__);
 
       this.table.ajax.reload();
     },
-    onInput: function onInput(event, colIndex) {
+    onChange: function onChange(event, colIndex) {
       this.debouncedFilter(event, colIndex);
     },
     onKeydown: function onKeydown(event) {
@@ -19516,6 +19543,7 @@ var sampleData = {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "userTypes", function() { return userTypes; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columns", function() { return columns; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "columnDefs", function() { return columnDefs; });
 /* harmony import */ var _babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(467);
@@ -19565,6 +19593,22 @@ function formatJSON(json) {
   }).join('');
 }
 
+var userTypes = [{
+  value: '',
+  label: 'All categories'
+}, {
+  value: 'app',
+  label: 'Apps'
+}, {
+  value: 'appAction',
+  label: 'App Actions'
+}, {
+  value: 'integration',
+  label: 'DIS integration'
+}, {
+  value: 'studio',
+  label: 'Fliplet Studio/Viewer'
+}];
 var columns = [{
   name: 'Date & time',
   prop: 'createdAt',
@@ -19573,8 +19617,6 @@ var columns = [{
 }, {
   name: 'Category',
   prop: 'user.type',
-  sortProp: 'userType',
-  format: 'code',
   searchable: true,
   width: 100,
   orderable: false
@@ -19608,6 +19650,15 @@ var columnDefs = [{
     return TD(data, {
       format: 'll LTS'
     });
+  }
+}, {
+  targets: filterIndex(columns, {
+    name: 'Category'
+  }),
+  render: function render(value) {
+    return _.get(_.find(userTypes, {
+      value: value
+    }), 'label', null);
   }
 }, {
   targets: filterIndex(columns, function (col) {
@@ -19656,6 +19707,8 @@ module.exports = _typeof, module.exports.__esModule = true, module.exports["defa
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getUserTypeQuery", function() { return getUserTypeQuery; });
+/* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(466);
+
 /**
  * Parses a search for user types to return the matching user types for query
  * @param {String} value - Search value entered by user
@@ -19663,19 +19716,23 @@ __webpack_require__.r(__webpack_exports__);
  *   - {undefined} No query needed
  *   - {Array} User type query An empty array means the search value doesn't match any user types.
  */
+
 var getUserTypeQuery = function getUserTypeQuery() {
   var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var allowedUserTypes = ['integration', 'studio', 'app', 'appAction'];
+  var allowedUserTypes = _config_log_table__WEBPACK_IMPORTED_MODULE_0__["userTypes"].map(function (type) {
+    return type.value;
+  });
   value = "".concat(value).trim().toLowerCase(); // No search string provided
 
   if (!value) {
     return;
   }
 
-  var userTypes = allowedUserTypes.filter(function (type) {
-    return type.indexOf(value) !== -1;
-  });
-  return userTypes;
+  if (allowedUserTypes.indexOf(value) === -1) {
+    return [];
+  }
+
+  return [value];
 };
 
 /***/ }),

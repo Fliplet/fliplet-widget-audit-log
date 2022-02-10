@@ -1,3 +1,5 @@
+import { userTypes } from '../config/log-table';
+
 /**
  * Parses a search for user types to return the matching user types for query
  * @param {String} value - Search value entered by user
@@ -6,7 +8,7 @@
  *   - {Array} User type query An empty array means the search value doesn't match any user types.
  */
 export const getUserTypeQuery = (value = '') => {
-  const allowedUserTypes = ['integration', 'studio', 'app', 'appAction'];
+  const allowedUserTypes = userTypes.map(type => type.value);
 
   value = `${value}`.trim().toLowerCase();
 
@@ -15,7 +17,9 @@ export const getUserTypeQuery = (value = '') => {
     return;
   }
 
-  const userTypes = allowedUserTypes.filter(type => type.indexOf(value) !== -1);
+  if (allowedUserTypes.indexOf(value) === -1) {
+    return [];
+  }
 
-  return userTypes;
+  return [value];
 };

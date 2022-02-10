@@ -44,6 +44,14 @@ function formatJSON(json) {
     ).join('');
 }
 
+export const userTypes = [
+  { value: '', label: 'All categories' },
+  { value: 'app', label: 'Apps' },
+  { value: 'appAction', label: 'App Actions' },
+  { value: 'integration', label: 'DIS integration' },
+  { value: 'studio', label: 'Fliplet Studio/Viewer' }
+];
+
 export const columns = [
   {
     name: 'Date & time',
@@ -54,7 +62,6 @@ export const columns = [
   {
     name: 'Category',
     prop: 'user.type',
-    format: 'code',
     searchable: true,
     width: 100,
     orderable: false
@@ -91,6 +98,12 @@ export const columnDefs = [
     targets: filterIndex(columns, { type: 'date' }),
     render(data) {
       return TD(data, { format: 'll LTS' });
+    }
+  },
+  {
+    targets: filterIndex(columns, { name: 'Category' }),
+    render(value) {
+      return _.get(_.find(userTypes, { value }), 'label', null);
     }
   },
   {

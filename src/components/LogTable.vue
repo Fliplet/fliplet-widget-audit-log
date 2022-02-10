@@ -7,10 +7,16 @@
         <tr>
           <th v-for="(col, colIndex) in columns" :key="colIndex">
             {{ col.name }}
+            <select
+              class="filter"
+              v-if="col.name === 'Category'"
+              @change="onChange($event, colIndex)">
+              <option v-for="type in userTypes" :key="type.value" :value="type.value">{{ type.label }}</option>
+            </select>
             <input
-              v-if="col.searchable"
+              v-else-if="col.searchable"
               @click.stop
-              @input="onInput($event, colIndex)"
+              @input="onChange($event, colIndex)"
               @keydown="onKeydown($event)"
               type="text"
               class="filter" />
@@ -28,7 +34,7 @@ import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import sampleData from '../config/sample-data';
-import { columns, columnDefs } from '../config/log-table';
+import { columns, columnDefs, userTypes } from '../config/log-table';
 import { getUserTypeQuery } from '../libs/logs';
 
 export default {
@@ -42,6 +48,7 @@ export default {
         data: [],
         count: 0
       },
+      userTypes,
       columns,
       limits: [25, 50, 100, 500],
       query: {
@@ -239,7 +246,7 @@ export default {
 
       this.table.ajax.reload();
     },
-    onInput(event, colIndex) {
+    onChange(event, colIndex) {
       this.debouncedFilter(event, colIndex);
     },
     onKeydown(event) {
