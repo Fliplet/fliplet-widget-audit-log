@@ -39,8 +39,6 @@ export const toggleClamping = (e) => {
 export const inspectData = (e) => {
   var jsonStr = $(e.currentTarget).parents('[data-json]').find('.full').html();
 
-  jsonStr = $('<div></div>').html(jsonStr).text();
-
   try {
     var json = JSON.parse(jsonStr);
 
