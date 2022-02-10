@@ -18890,7 +18890,7 @@ var columnDefs = [{
       return '';
     }
 
-    return "<div data-json>\n                <div class=\"clamped\">".concat(jsonStr, "</div>\n                <div class=\"full\">").concat(jsonStr, "</div>\n                <div class=\"toggle\">\n                  <span class=\"btn-toggle label label-default show-more\">Show more</span>\n                  <span class=\"btn-toggle label label-default show-less\">Show less</span>\n                </div>\n              </div>");
+    return "<div data-json>\n                <div class=\"clamped\">".concat(jsonStr, "</div>\n                <div class=\"full\">").concat(jsonStr, "</div>\n                <div class=\"toggle\">\n                  <span class=\"btn-toggle label label-default show-more\"><i class=\"fa fa-chevron-down\"></i></span>\n                  <span class=\"btn-toggle label label-default show-less\"><i class=\"fa fa-chevron-up\"></i></span>\n                </div>\n              </div>");
   }
 }, {
   targets: filterIndex(columns, {
@@ -18969,7 +18969,7 @@ var clampJSONData = function clampJSONData() {
   });
 };
 var toggleClamping = function toggleClamping(e) {
-  e.target.parentNode.parentNode.classList.toggle('show-full');
+  e.currentTarget.parentNode.parentNode.classList.toggle('show-full');
 };
 
 /***/ }),

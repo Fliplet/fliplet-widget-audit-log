@@ -143,10 +143,13 @@ body {
         text-align: right; }
         .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle {
           cursor: pointer;
-          user-select: none; }
-        .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle {
+          user-select: none;
           transition: opacity 0.2s linear;
           opacity: 0.4; }
+          .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle .fa {
+            display: inline-block;
+            position: relative;
+            left: -1px; }
           .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .btn-toggle:hover {
             opacity: 1 !important; }
         .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .show-less {

@@ -144,8 +144,8 @@ export const columnDefs = [
                 <div class="clamped">${jsonStr}</div>
                 <div class="full">${jsonStr}</div>
                 <div class="toggle">
-                  <span class="btn-toggle label label-default show-more">Show more</span>
-                  <span class="btn-toggle label label-default show-less">Show less</span>
+                  <span class="btn-toggle label label-default show-more"><i class="fa fa-chevron-down"></i></span>
+                  <span class="btn-toggle label label-default show-less"><i class="fa fa-chevron-up"></i></span>
                 </div>
               </div>`;
     }

@@ -33,5 +33,5 @@ export const clampJSONData = () => {
 };
 
 export const toggleClamping = (e) => {
-  e.target.parentNode.parentNode.classList.toggle('show-full');
+  e.currentTarget.parentNode.parentNode.classList.toggle('show-full');
 };
