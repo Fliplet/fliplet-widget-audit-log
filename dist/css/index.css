@@ -88,14 +88,13 @@ body {
     width: 250px;
     background-color: transparent;
     margin-bottom: 10px; }
-  .dataTable .dataTables_wrapper select {
-    padding-left: 2px !important; }
   .dataTable .dataTables_wrapper .dataTables_length select {
     background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     height: 34px;
-    margin: 0 10px; }
+    margin: 0 10px;
+    width: auto; }
   .dataTable .table-responsive {
     table-layout: fixed; }
     .dataTable .table-responsive .link {
