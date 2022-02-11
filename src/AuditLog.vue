@@ -4,7 +4,7 @@
       <div class="alert alert-info">
         <p>
           <strong>This feature is currently in beta</strong><br>We are actively refining the functionality and collecting feedback. If you have any questions please
-          <a href='#' @click="openChatOverlay">contact us</a>.
+          <a href='#' @click.prevent="openChatOverlay">contact us</a>.
         </p>
         <p>
           <strong>View detailed Studio and app usage detail</strong><br>See exactly what the server has been doing and assess issues immediately. For more information on how to use this feature, <a href="https://help.fliplet.com" target="_blank">click here</a>.

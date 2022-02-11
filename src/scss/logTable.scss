@@ -1,3 +1,19 @@
+@mixin invisible {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+@mixin unhide {
+  position: relative;
+  z-index: 0;
+  opacity: 1;
+  pointer-events: all;
+}
+
 .dataTable {
   width: 100%;
   margin-top: 20px;
@@ -44,16 +60,13 @@
       margin-bottom: 10px;
     }
 
-    select {
-      padding-left: 2px !important;
-    }
-
     .dataTables_length select {
       background-color: transparent;
       border: 1px solid rgba(0, 0, 0, 0.1);
       border-radius: 2px;
       height: 34px;
       margin: 0 10px;
+      width: auto;
     }
   }
 
@@ -100,6 +113,84 @@
         &.nowrap {
           white-space: nowrap;
           overflow: hidden;
+        }
+
+        [data-json] {
+          position: relative;
+          overflow: hidden;
+
+          .clamped {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+          }
+
+          .full {
+            @include invisible;
+          }
+
+          .toolbar {
+            text-align: right;
+
+            .fa {
+              display: inline-block;
+              position: relative;
+            }
+          }
+
+          .toggle {
+            display: none;
+          }
+
+          .label {
+            cursor: pointer;
+            user-select: none;
+            transition: opacity 0.2s linear;
+            opacity: 0.4;
+
+            .fa {
+              left: -1px;
+            }
+
+            &:hover {
+              opacity: 1 !important;
+            }
+          }
+
+          &:hover .label {
+            opacity: 0.65;
+          }
+
+          &.is-clamped {
+            .toggle {
+              display: inline-block;
+
+              .show-less {
+                display: none;
+              }
+            }
+
+            &.show-full {
+              .clamped {
+                @include invisible;
+              }
+
+              .full {
+                @include unhide;
+              }
+
+              .toggle {
+                .show-more {
+                  display: none;
+                }
+
+                .show-less {
+                  display: inline-block;
+                }
+              }
+            }
+          }
         }
       }
     }

@@ -44,6 +44,28 @@ function formatJSON(json) {
     ).join('');
 }
 
+/**
+ * Escape HTML characters so HTML content can be printed on screen
+ * @param {String} unsafe - String to be escaped
+ * @returns {String} Escaped string
+ */
+function escapeHtml(unsafe = '') {
+  const escape = {
+    '&': '&amp;',
+    '<': '&lt;',
+    '>': '&gt;',
+    '"': '&quot;',
+    "'": '&#x27;',
+    '`': '&#x60;',
+    '=': '&#x3D;'
+  };
+  const exp = new RegExp(`[${Object.keys(escape).join('')}]`, 'g');
+
+  return unsafe.replace(exp, (char) => {
+    return escape[char];
+  });
+}
+
 export const userTypes = [
   { value: '', label: 'All categories' },
   { value: 'app', label: 'Apps/Integrations' },
@@ -112,7 +134,23 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, { type: 'data' }),
     render(data) {
-      return formatJSON(data);
+      var jsonStr = escapeHtml(formatJSON(data));
+
+      if (!jsonStr) {
+        return '';
+      }
+
+      return `<div data-json>
+                <div class="clamped">${jsonStr}</div>
+                <div class="full">${jsonStr}</div>
+                <div class="toolbar">
+                  <span class="toggle">
+                    <span class="btn-toggle label label-default show-more" title="Expand"><i class="fa fa-chevron-down"></i></span>
+                    <span class="btn-toggle label label-default show-less" title="Collapse"><i class="fa fa-chevron-up"></i></span>
+                  </span>
+                  <span class="btn-inspect label label-default" title="Inspect"><i class="fa fa-eye"></i></span>
+                </div>
+              </div>`;
     }
   },
   {

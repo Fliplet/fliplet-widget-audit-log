@@ -88,14 +88,13 @@ body {
     width: 250px;
     background-color: transparent;
     margin-bottom: 10px; }
-  .dataTable .dataTables_wrapper select {
-    padding-left: 2px !important; }
   .dataTable .dataTables_wrapper .dataTables_length select {
     background-color: transparent;
     border: 1px solid rgba(0, 0, 0, 0.1);
     border-radius: 2px;
     height: 34px;
-    margin: 0 10px; }
+    margin: 0 10px;
+    width: auto; }
   .dataTable .table-responsive {
     table-layout: fixed; }
     .dataTable .table-responsive .link {
@@ -122,3 +121,56 @@ body {
     .dataTable .table-responsive tbody tr td.nowrap {
       white-space: nowrap;
       overflow: hidden; }
+    .dataTable .table-responsive tbody tr td [data-json] {
+      position: relative;
+      overflow: hidden; }
+      .dataTable .table-responsive tbody tr td [data-json] .clamped {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden; }
+      .dataTable .table-responsive tbody tr td [data-json] .full {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none; }
+      .dataTable .table-responsive tbody tr td [data-json] .toolbar {
+        text-align: right; }
+        .dataTable .table-responsive tbody tr td [data-json] .toolbar .fa {
+          display: inline-block;
+          position: relative; }
+      .dataTable .table-responsive tbody tr td [data-json] .toggle {
+        display: none; }
+      .dataTable .table-responsive tbody tr td [data-json] .label {
+        cursor: pointer;
+        user-select: none;
+        transition: opacity 0.2s linear;
+        opacity: 0.4; }
+        .dataTable .table-responsive tbody tr td [data-json] .label .fa {
+          left: -1px; }
+        .dataTable .table-responsive tbody tr td [data-json] .label:hover {
+          opacity: 1 !important; }
+      .dataTable .table-responsive tbody tr td [data-json]:hover .label {
+        opacity: 0.65; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle {
+        display: inline-block; }
+        .dataTable .table-responsive tbody tr td [data-json].is-clamped .toggle .show-less {
+          display: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .clamped {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        opacity: 0;
+        pointer-events: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .full {
+        position: relative;
+        z-index: 0;
+        opacity: 1;
+        pointer-events: all; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .toggle .show-more {
+        display: none; }
+      .dataTable .table-responsive tbody tr td [data-json].is-clamped.show-full .toggle .show-less {
+        display: inline-block; }

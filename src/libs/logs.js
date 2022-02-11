@@ -23,3 +23,33 @@ export const getUserTypeQuery = (value = '') => {
 
   return [value];
 };
+
+export const clampJSONData = () => {
+  $('[data-json]').each((i, el) => {
+    const [clamped, full] = el.children;
+
+    el.classList.toggle('is-clamped', full.clientHeight > clamped.clientHeight);
+  });
+};
+
+export const toggleClamping = (e) => {
+  $(e.currentTarget).parents('[data-json]').toggleClass('show-full');
+};
+
+export const inspectData = (e) => {
+  var jsonStr = $(e.currentTarget).parents('[data-json]').find('.full').html();
+
+  try {
+    var json = JSON.parse(jsonStr);
+
+    Fliplet.Modal.alert({
+      title: 'Log data',
+      message: `<pre>${JSON.stringify(json, null, 2)}</pre>`
+    });
+  } catch (error) {
+    Fliplet.Modal.alert({
+      title: 'Error parsing JSON data',
+      message: Fliplet.parseError(error)
+    });
+  }
+};
