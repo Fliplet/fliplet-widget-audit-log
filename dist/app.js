@@ -17280,7 +17280,12 @@ var staticRenderFns = [
       ),
       _c(
         "a",
-        { attrs: { href: "https://help.fliplet.com", target: "_blank" } },
+        {
+          attrs: {
+            href: "https://help.fliplet.com/audit-log/",
+            target: "_blank",
+          },
+        },
         [_vm._v("click here")]
       ),
       _vm._v(".\n      "),
@@ -19450,10 +19455,15 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
         label: _.get(_.find(_config_dates__WEBPACK_IMPORTED_MODULE_6__["dateRanges"], {
           value: 'none'
         }), 'label')
-      }); // If the end date is today, use the current time instead of 00:00
+      }); // Set start date to the start of day
+
+      this.dateRange.startDate = moment(this.dateRange.startDate).startOf('day').toISOString(); // If the end date is today, use the current time instead of 00:00
 
       if (moment(this.dateRange.endDate).isSame(moment(), 'day')) {
         this.dateRange.endDate = moment().toISOString();
+      } else {
+        // Set end date to the end of day
+        this.dateRange.endDate = moment(this.dateRange.endDate).add(1, 'day').startOf('day').subtract(1, 'millisecond').toISOString();
       }
 
       Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDates"])({

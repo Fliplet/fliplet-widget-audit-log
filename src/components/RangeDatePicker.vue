@@ -92,9 +92,21 @@ export default {
         label: _.get(_.find(dateRanges, { value: 'none' }), 'label')
       });
 
+      // Set start date to the start of day
+      this.dateRange.startDate = moment(this.dateRange.startDate)
+        .startOf('day')
+        .toISOString();
+
       // If the end date is today, use the current time instead of 00:00
       if (moment(this.dateRange.endDate).isSame(moment(), 'day')) {
         this.dateRange.endDate = moment().toISOString();
+      } else {
+        // Set end date to the end of day
+        this.dateRange.endDate = moment(this.dateRange.endDate)
+          .add(1, 'day')
+          .startOf('day')
+          .subtract(1, 'millisecond')
+          .toISOString();
       }
 
       setDates({
