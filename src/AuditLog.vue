@@ -7,7 +7,7 @@
           <a href='#' @click.prevent="openChatOverlay">contact us</a>.
         </p>
         <p>
-          <strong>View detailed Studio and app usage detail</strong><br>See exactly what the server has been doing and assess issues immediately. For more information on how to use this feature, <a href="https://help.fliplet.com" target="_blank">click here</a>.
+          <strong>View detailed Studio and app usage detail</strong><br>See exactly what the server has been doing and assess issues immediately. For more information on how to use this feature, <a href="https://help.fliplet.com/audit-log/" target="_blank">click here</a>.
         </p>
       </div>
       <RangeDatePicker></RangeDatePicker>
