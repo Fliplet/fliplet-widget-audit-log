@@ -19458,6 +19458,7 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
       }); // Set start date to the start of day
 
       this.dateRange.startDate = moment(this.dateRange.startDate).startOf('day').toISOString(); // If the end date is today, use the current time instead of 00:00
+      // HACK: Workaround for https://weboo.atlassian.net/browse/ID-1920
 
       if (moment(this.dateRange.endDate).isSame(moment(), 'day')) {
         this.dateRange.endDate = moment().toISOString();

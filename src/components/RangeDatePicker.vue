@@ -98,6 +98,7 @@ export default {
         .toISOString();
 
       // If the end date is today, use the current time instead of 00:00
+      // HACK: Workaround for https://weboo.atlassian.net/browse/ID-1920
       if (moment(this.dateRange.endDate).isSame(moment(), 'day')) {
         this.dateRange.endDate = moment().toISOString();
       } else {
