@@ -21,35 +21,15 @@ function filterIndex(collection = [], predicate) {
 }
 
 /**
- * Stringify JSON objects and add spaces as necessary to match the DB literal search conditions
- * @param {Object} json - JSON data to be formatted
- * @returns {String} Formatted JSON string
- */
-function formatJSON(json) {
-  // Render undefined or null data
-  if (typeof json === 'undefined' || json === null) {
-    return '';
-  }
-
-  return JSON.stringify(json, null, '\b')
-    .split('\b')
-    .map(str =>
-      (str.slice(-1) === ',' ? `${str} ` : str)
-        .replace(/,\n$/, ', ')
-        .replace(/\{\n/, '{')
-        .replace(/\n\}/, '}')
-        .replace(/\[\n/, '[')
-        .replace(/\n\]/, ']')
-        .replace(/\n$/, '')
-    ).join('');
-}
-
-/**
  * Escape HTML characters so HTML content can be printed on screen
  * @param {String} unsafe - String to be escaped
  * @returns {String} Escaped string
  */
 function escapeHtml(unsafe = '') {
+  if (unsafe === null) {
+    return '';
+  }
+
   const escape = {
     '&': '&amp;',
     '<': '&lt;',
@@ -107,7 +87,7 @@ export const columns = [
   },
   {
     name: 'Data',
-    prop: 'data',
+    prop: 'dataString',
     type: 'data',
     format: 'code',
     searchable: true
@@ -134,7 +114,7 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, { type: 'data' }),
     render(data) {
-      var jsonStr = escapeHtml(formatJSON(data));
+      var jsonStr = escapeHtml(data);
 
       if (!jsonStr) {
         return '';

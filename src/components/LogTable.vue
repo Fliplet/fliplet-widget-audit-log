@@ -57,6 +57,7 @@ export default {
         appId: getAppId(),
         sort: '',
         limit: 25,
+        fields: ['createdAt', 'type', 'user', 'app'],
         offset: 0,
         includePagination: true,
         where: null,
@@ -121,7 +122,7 @@ export default {
                 ];
                 break;
               case 'Data':
-                where.data = { $iLike: `%${value}%` };
+                where.dataString = { $iLike: `%${value}%` };
                 break;
               default:
                 break;
@@ -166,6 +167,13 @@ export default {
           .draw();
       }, 500);
     },
+    getFields(type) {
+      if (type === 'csv') {
+        return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
+      }
+
+      return ['createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+    },
     getData() {
       setUIIsLoading(true);
       setUIError();
@@ -177,6 +185,8 @@ export default {
           }, 300);
         });
       }
+
+      this.$set(this.query, 'fields', this.getFields());
 
       return getLogs(this.query);
     },
@@ -195,6 +205,8 @@ export default {
         const organization = _.find(organizations, { id: getOrganizationId() });
 
         orgName = organization && organization.name;
+
+        this.$set(this.query, 'fields', this.getFields('csv'));
 
         return getLogs(Object.assign({}, this.query, {
           format: 'csv',
