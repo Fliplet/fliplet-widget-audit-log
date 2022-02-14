@@ -57,7 +57,6 @@ export default {
         appId: getAppId(),
         sort: '',
         limit: 25,
-        fields: ['createdAt', 'type', 'user', 'app'],
         offset: 0,
         includePagination: true,
         where: null,
@@ -186,9 +185,9 @@ export default {
         });
       }
 
-      this.$set(this.query, 'fields', this.getFields());
-
-      return getLogs(this.query);
+      return getLogs(Object.assign({}, this.query, {
+        fields: this.getFields()
+      }));
     },
     getCSV() {
       let orgName;
@@ -206,10 +205,9 @@ export default {
 
         orgName = organization && organization.name;
 
-        this.$set(this.query, 'fields', this.getFields('csv'));
-
         return getLogs(Object.assign({}, this.query, {
           format: 'csv',
+          fields: this.getFields('csv'),
           limit: 100000,
           offset: 0
         }));

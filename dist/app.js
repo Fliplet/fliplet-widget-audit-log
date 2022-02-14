@@ -17627,7 +17627,6 @@ __webpack_require__.r(__webpack_exports__);
         appId: Object(_store__WEBPACK_IMPORTED_MODULE_0__["getAppId"])(),
         sort: '',
         limit: 25,
-        fields: ['createdAt', 'type', 'user', 'app'],
         offset: 0,
         includePagination: true,
         where: null,
@@ -17774,8 +17773,9 @@ __webpack_require__.r(__webpack_exports__);
         });
       }
 
-      this.$set(this.query, 'fields', this.getFields());
-      return Object(_services_logs__WEBPACK_IMPORTED_MODULE_1__["getLogs"])(this.query);
+      return Object(_services_logs__WEBPACK_IMPORTED_MODULE_1__["getLogs"])(Object.assign({}, this.query, {
+        fields: this.getFields()
+      }));
     },
     getCSV: function getCSV() {
       var _this2 = this;
@@ -17793,11 +17793,9 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         orgName = organization && organization.name;
-
-        _this2.$set(_this2.query, 'fields', _this2.getFields('csv'));
-
         return Object(_services_logs__WEBPACK_IMPORTED_MODULE_1__["getLogs"])(Object.assign({}, _this2.query, {
           format: 'csv',
+          fields: _this2.getFields('csv'),
           limit: 100000,
           offset: 0
         }));
