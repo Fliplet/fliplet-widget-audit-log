@@ -121,7 +121,7 @@ export default {
                 ];
                 break;
               case 'Data':
-                where.data = { $iLike: `%${value}%` };
+                where.dataString = { $iLike: `%${value}%` };
                 break;
               default:
                 break;
@@ -166,6 +166,13 @@ export default {
           .draw();
       }, 500);
     },
+    getFields(type) {
+      if (type === 'csv') {
+        return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
+      }
+
+      return ['createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+    },
     getData() {
       setUIIsLoading(true);
       setUIError();
@@ -178,7 +185,9 @@ export default {
         });
       }
 
-      return getLogs(this.query);
+      return getLogs(Object.assign({}, this.query, {
+        fields: this.getFields()
+      }));
     },
     getCSV() {
       let orgName;
@@ -198,6 +207,7 @@ export default {
 
         return getLogs(Object.assign({}, this.query, {
           format: 'csv',
+          fields: this.getFields('csv'),
           limit: 100000,
           offset: 0
         }));
