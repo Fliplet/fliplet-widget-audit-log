@@ -18556,6 +18556,9 @@ var clampJSONData = function clampJSONData() {
 };
 var toggleClamping = function toggleClamping(e) {
   $(e.currentTarget).parents('[data-json]').toggleClass('show-full');
+  setTimeout(function () {
+    Fliplet.Widget.autosize();
+  }, 50);
 };
 var inspectData = function inspectData(e) {
   var jsonStr = $(e.currentTarget).parents('[data-json]').find('.full').html();

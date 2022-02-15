@@ -34,6 +34,10 @@ export const clampJSONData = () => {
 
 export const toggleClamping = (e) => {
   $(e.currentTarget).parents('[data-json]').toggleClass('show-full');
+
+  setTimeout(() => {
+    Fliplet.Widget.autosize();
+  }, 50);
 };
 
 export const inspectData = (e) => {
