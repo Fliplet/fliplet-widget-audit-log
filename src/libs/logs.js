@@ -8,14 +8,12 @@ import { userTypes } from '../config/log-table';
  *   - {Array} User type query An empty array means the search value doesn't match any user types.
  */
 export const getUserTypeQuery = (value = '') => {
-  const allowedUserTypes = userTypes.map(type => type.value);
-
-  value = `${value}`.trim().toLowerCase();
-
   // No search string provided
   if (!value) {
     return;
   }
+
+  const allowedUserTypes = userTypes.map(type => type.value);
 
   if (allowedUserTypes.indexOf(value) === -1) {
     return [];
