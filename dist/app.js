@@ -18530,14 +18530,15 @@ __webpack_require__.r(__webpack_exports__);
 
 var getUserTypeQuery = function getUserTypeQuery() {
   var value = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : '';
-  var allowedUserTypes = _config_log_table__WEBPACK_IMPORTED_MODULE_1__["userTypes"].map(function (type) {
-    return type.value;
-  });
-  value = "".concat(value).trim().toLowerCase(); // No search string provided
 
+  // No search string provided
   if (!value) {
     return;
   }
+
+  var allowedUserTypes = _config_log_table__WEBPACK_IMPORTED_MODULE_1__["userTypes"].map(function (type) {
+    return type.value;
+  });
 
   if (allowedUserTypes.indexOf(value) === -1) {
     return [];
