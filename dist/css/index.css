@@ -95,6 +95,8 @@ body {
     height: 34px;
     margin: 0 10px;
     width: auto; }
+  .dataTable .dataTables_wrapper .dataTables_scroll .dataTables_scrollBody > table > thead > tr > th * {
+    display: none; }
   .dataTable .table-responsive {
     table-layout: fixed; }
     .dataTable .table-responsive .link {
