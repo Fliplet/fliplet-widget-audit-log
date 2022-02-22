@@ -95,7 +95,7 @@ export default {
               return;
             }
 
-            var value = col.search.value;
+            var value = (col.search.value || '').trim();
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -103,7 +103,7 @@ export default {
             }
 
             // No need to assign where queries if value is empty
-            if (!value || !value.trim()) {
+            if (!value) {
               return;
             }
 
@@ -255,6 +255,13 @@ export default {
       this.table.ajax.reload();
     },
     onChange(event, colIndex) {
+      var value = event.target.value;
+      var sanitizedValue = value.replace(/\t/g, '');
+
+      if (sanitizedValue !== value) {
+        event.target.value = sanitizedValue;
+      }
+
       this.debouncedFilter(event, colIndex);
     },
     onKeydown(event) {
