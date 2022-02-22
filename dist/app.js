@@ -17667,7 +17667,7 @@ __webpack_require__.r(__webpack_exports__);
               return;
             }
 
-            var value = col.search.value;
+            var value = (col.search.value || '').trim();
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -17675,7 +17675,7 @@ __webpack_require__.r(__webpack_exports__);
             } // No need to assign where queries if value is empty
 
 
-            if (!value || !value.trim()) {
+            if (!value) {
               return;
             }
 
@@ -17840,6 +17840,13 @@ __webpack_require__.r(__webpack_exports__);
       this.table.ajax.reload();
     },
     onChange: function onChange(event, colIndex) {
+      var value = event.target.value;
+      var sanitizedValue = value.replace(/\t/g, '');
+
+      if (sanitizedValue !== value) {
+        event.target.value = sanitizedValue;
+      }
+
       this.debouncedFilter(event, colIndex);
     },
     onKeydown: function onKeydown(event) {
