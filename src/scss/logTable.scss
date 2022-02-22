@@ -68,6 +68,10 @@
       margin: 0 10px;
       width: auto;
     }
+
+    .dataTables_scroll .dataTables_scrollBody > table > thead > tr > th * {
+      display: none;
+    }
   }
 
   .table-responsive {
