@@ -8,15 +8,17 @@
         </p>
         <p>
           <strong>View detailed Studio and app usage details</strong><br>See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.
-          <br>1. <a href="https://help.fliplet.com/audit-log/#1">Which emails have been sent and what's their status?</a>
-          <br>2. <a href="https://help.fliplet.com/audit-log/#2">Which push notifications have been sent and what's their status?</a>
-          <br>3. <a href="https://help.fliplet.com/audit-log/#3">Who has recently logged in?</a>
-          <br>4. <a href="https://help.fliplet.com/audit-log/#4">Who has added/removed 2-factor authentication from their account?</a>
-          <br>5. <a href="https://help.fliplet.com/audit-log/#5">What files have been uploaded, moved, or deleted?</a>
-          <br>6. <a href="https://help.fliplet.com/audit-log/#6">What apps have been recently published and by who?</a>
-          <br>Our support site also contains <a href="https://help.fliplet.com/audit-log/">a full explanation of the feature</a> and <a href="https://help.fliplet.com/audit-log-dictionary/">an explanation of different log types</a>.
-          <br>If you'd like to monitor audit logs and configure alerts with your own software, please <a href="https://developers.fliplet.com/API/core/organizations.html#audit-logs">review our technical documentation</a>.
         </p>
+        <ol>
+          <li><a href="https://help.fliplet.com/audit-log/#1">Which emails have been sent and what's their status?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#2">Which push notifications have been sent and what's their status?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#3">Who has recently logged in?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#4">Who has added/removed 2-factor authentication from their account?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#5">What files have been uploaded, moved, or deleted?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#6">What apps have been recently published and by who?</a></li>
+        </ol>
+        <p>Our support site also contains <a href="https://help.fliplet.com/audit-log/">a full explanation of the feature</a> and <a href="https://help.fliplet.com/audit-log-dictionary/">an explanation of different log types</a>.</p>
+        <p>If you'd like to monitor audit logs and configure alerts with your own software, please <a href="https://developers.fliplet.com/API/core/organizations.html#audit-logs">review our technical documentation</a>.</p>
       </div>
       <RangeDatePicker></RangeDatePicker>
     </div>
