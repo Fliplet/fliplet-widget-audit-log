@@ -156,7 +156,9 @@ export default {
                     { data: { _studioUser: { email: { $iLike: `%${userEmails[0]}%` } } } }
                   ];
                 } else if (valueToLowerCase === 'as') {
-                  where.$and = [
+                  where.$or = [
+                    { user: { type: null, email: { $iLike: `%${value}%` } } },
+                    { data: { _userEmail: { $iLike: `%${value}%` } } },
                     { data: { _studioUser: { $ne: null } } }
                   ];
                 } else {

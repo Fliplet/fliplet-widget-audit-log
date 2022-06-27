@@ -18025,7 +18025,9 @@
                         { data: { _studioUser: { email: { $iLike: '%'.concat(userEmails[0], '%') } } } }
                       ];
                     } else if (valueToLowerCase === 'as') {
-                      where.$and = [
+                      where.$or = [
+                        { user: { type: null, email: { $iLike: '%'.concat(value, '%') } } },
+                        { data: { _userEmail: { $iLike: '%'.concat(value, '%') } } },
                         { data: { _studioUser: { $ne: null } } }
                       ];
                     } else {
