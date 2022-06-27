@@ -107,6 +107,7 @@ export default {
               return;
             }
 
+
             switch (col.name) {
               case 'Log type':
                 where.type = { $iLike: `%${value}%` };
@@ -114,12 +115,61 @@ export default {
               case 'App':
                 where.app = { name: { $iLike: `%${value}%` } };
                 break;
-              case 'User':
-                where.$or = [
-                  { user: { type: null, email: { $iLike: `%${value}%` } } },
-                  { data: { _userEmail: { $iLike: `%${value}%` } } }
-                ];
+
+              case 'User': {
+                const stringRegExp = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
+
+                const impersonateUserEmail = new RegExp(`^${stringRegExp} as ${stringRegExp}$`);
+                const impersonateUserStartAs = new RegExp(`^as ${stringRegExp}$`);
+                const impersonateUserEndAs = new RegExp(`^${stringRegExp} as$`);
+                const valueToLowerCase = String(value).toLowerCase();
+
+                if (impersonateUserEmail.test(valueToLowerCase)) {
+                  const userEmails = value.split(' as ');
+
+                  where.$and = [
+                    { $or: [
+                      { user: { type: null, email: { $iLike: `%${userEmails[1]}%` } } },
+                      { data: { _userEmail: { $iLike: `%${userEmails[1]}%` } } }]
+                    },
+                    { data: { _studioUser: { email: { $iLike: `%${userEmails[0]}%` } } } }
+                  ];
+                } else if (impersonateUserStartAs.test(valueToLowerCase)) {
+                  const userEmails = value.split('as ');
+
+                  where.$and = [
+                    { $or: [
+                      { user: { type: null, email: { $iLike: `%${userEmails[1]}%` } } },
+                      { data: { _userEmail: { $iLike: `%${userEmails[1]}%` } } }]
+                    },
+                    { data: { _studioUser: { $ne: null } } }
+                  ];
+                } else if (impersonateUserEndAs.test(valueToLowerCase)) {
+                  const userEmails = value.split(' as');
+
+                  where.$and = [
+                    { $or: [
+                      { user: { type: null, email: { $ne: null } } },
+                      { data: { _userEmail: { $ne: null } } }
+                    ]
+                    },
+                    { data: { _studioUser: { email: { $iLike: `%${userEmails[0]}%` } } } }
+                  ];
+                } else if (valueToLowerCase === 'as') {
+                  where.$and = [
+                    { data: { _studioUser: { $ne: null } } }
+                  ];
+                } else {
+                  where.$or = [
+                    { user: { type: null, email: { $iLike: `%${value}%` } } },
+                    { data: { _userEmail: { $iLike: `%${value}%` } } },
+                    { data: { _studioUser: { email: { $iLike: `%${value}%` } } } }
+                  ];
+                }
+
                 break;
+              }
+
               case 'Data':
                 where.dataString = { $iLike: `%${value}%` };
                 break;
