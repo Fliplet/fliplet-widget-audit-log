@@ -17986,55 +17986,59 @@
                     break;
 
                   case 'User':
-                    const stringRegExp = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
+                    // Regular expression to match email string to filter
+                    const regExToMatchEmailStr = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
 
-                    const impersonateUserEmail = new RegExp(`^${stringRegExp} as ${stringRegExp}$`);
-                    const impersonateUserStartAs = new RegExp(`^as ${stringRegExp}$`);
-                    const impersonateUserEndAs = new RegExp(`^${stringRegExp} as$`);
-                    const valueToLowerCase = String(value).toLowerCase();
+                    const impersonateUserEmails = value.match(new RegExp(`^${regExToMatchEmailStr} as ${regExToMatchEmailStr}$`, 'i'));
+                    const impersonateUserStartAsEmail = value.match(new RegExp(`^as ${regExToMatchEmailStr}$`, 'i'));
+                    const impersonateUserEndAsEmail = value.match(new RegExp(`^${regExToMatchEmailStr} as$`, 'i'));
 
-                    if (impersonateUserEmail.test(valueToLowerCase)) {
-                      const userEmails = value.split(' as ');
+                    // Prepare where data for normal and impersonate user email check
+                    const userEmailDataCheck =  {
+                      user: { type: null, email: { $iLike: '%'.concat(value, '%') } },
+                      data: { _userEmail: { $iLike: '%'.concat(value, '%') } }
+                    };
+
+                    const studioUserDataCheck = {
+                      data: { _studioUser: { email: { $iLike: '%'.concat(value, '%') } } }
+                    };
+
+                    if (impersonateUserEmails) {
+                      _.set(userEmailDataCheck, 'user.email.$iLike',  '%'.concat(impersonateUserEmails[2], '%'));
+                      _.set(userEmailDataCheck, 'data._userEmail.$iLike', '%'.concat(impersonateUserEmails[2], '%'));
+                      _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', '%'.concat(impersonateUserEmails[1], '%'));
 
                       where.$and = [
-                        { $or: [
-                          { user: { type: null, email: { $iLike: '%'.concat(userEmails[1], '%') } } },
-                          { data: { _userEmail: { $iLike: '%'.concat(userEmails[1], '%') } } }]
-                        },
-                        { data: { _studioUser: { email: { $iLike: '%'.concat(userEmails[0], '%') } } } }
+                        { $or: [userEmailDataCheck] },
+                        studioUserDataCheck
                       ];
-                    } else if (impersonateUserStartAs.test(valueToLowerCase)) {
-                      const userEmails = value.split('as ');
+                    } else if (impersonateUserStartAsEmail) {
+                      _.set(userEmailDataCheck, 'user.email.$iLike', '%'.concat(impersonateUserStartAsEmail[1], '%'));
+                      _.set(userEmailDataCheck, 'data._userEmail.$iLike', '%'.concat(impersonateUserStartAsEmail[1], '%'));
 
                       where.$and = [
-                        { $or: [
-                          { user: { type: null, email: { $iLike: '%'.concat(userEmails[1], '%') } } },
-                          { data: { _userEmail: { $iLike: '%'.concat(userEmails[1], '%') } } }]
-                        },
+                        { $or: [userEmailDataCheck] },
                         { data: { _studioUser: { $ne: null } } }
                       ];
-                    } else if (impersonateUserEndAs.test(valueToLowerCase)) {
-                      const userEmails = value.split(' as');
+                    } else if (impersonateUserEndAsEmail) {
+                      _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', '%'.concat(impersonateUserEndAsEmail[1], '%'));
 
                       where.$and = [
                         { $or: [
                           { user: { type: null, email: { $ne: null } } },
                           { data: { _userEmail: { $ne: null } } }
-                        ]
-                        },
-                        { data: { _studioUser: { email: { $iLike: '%'.concat(userEmails[0], '%') } } } }
+                        ] },
+                        studioUserDataCheck
                       ];
-                    } else if (valueToLowerCase === 'as') {
+                    } else if (String(value).toLowerCase() === 'as') {
                       where.$or = [
-                        { user: { type: null, email: { $iLike: '%'.concat(value, '%') } } },
-                        { data: { _userEmail: { $iLike: '%'.concat(value, '%') } } },
+                        userEmailDataCheck,
                         { data: { _studioUser: { $ne: null } } }
                       ];
                     } else {
                       where.$or = [
-                        { user: { type: null, email: { $iLike: '%'.concat(value, '%') } } },
-                        { data: { _userEmail: { $iLike: '%'.concat(value, '%') } } },
-                        { data: { _studioUser: { email: { $iLike: '%'.concat(value, '%') } } } }
+                        userEmailDataCheck,
+                        studioUserDataCheck
                       ];
                     }
 
