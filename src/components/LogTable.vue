@@ -107,7 +107,6 @@ export default {
               return;
             }
 
-
             switch (col.name) {
               case 'Log type':
                 where.type = { $iLike: `%${value}%` };
@@ -115,67 +114,12 @@ export default {
               case 'App':
                 where.app = { name: { $iLike: `%${value}%` } };
                 break;
-
-              case 'User': {
-                // Regular expression to match email string to filter
-                const regExToMatchEmailStr = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
-
-                const impersonateUserEmails = value.match(new RegExp(`^${regExToMatchEmailStr} as ${regExToMatchEmailStr}$`, 'i'));
-                const impersonateUserStartAsEmail = value.match(new RegExp(`^as ${regExToMatchEmailStr}$`, 'i'));
-                const impersonateUserEndAsEmail = value.match(new RegExp(`^${regExToMatchEmailStr} as$`, 'i'));
-
-                // Prepare where data for normal and impersonate user email check
-                const userEmailDataCheck =  {
-                  user: { type: null, email: { $iLike: `%${value}%` } },
-                  data: { _userEmail: { $iLike: `%${value}%` } }
-                };
-
-                const studioUserDataCheck = {
-                  data: { _studioUser: { email: { $iLike: `%${value}%` } } }
-                };
-
-                if (impersonateUserEmails) {
-                  _.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserEmails[2]}%`);
-                  _.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserEmails[2]}%`);
-                  _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEmails[1]}%`);
-
-                  where.$and = [
-                    { $or: [userEmailDataCheck] },
-                    studioUserDataCheck
-                  ];
-                } else if (impersonateUserStartAsEmail) {
-                  _.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
-                  _.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
-
-                  where.$and = [
-                    { $or: [userEmailDataCheck] },
-                    { data: { _studioUser: { $ne: null } } }
-                  ];
-                } else if (impersonateUserEndAsEmail) {
-                  _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEndAsEmail[1]}%`);
-
-                  where.$and = [
-                    { $or: [
-                      { user: { type: null, email: { $ne: null } } },
-                      { data: { _userEmail: { $ne: null } } }
-                    ] },
-                    studioUserDataCheck
-                  ];
-                } else if (String(value).toLowerCase() === 'as') {
-                  where.$or = [
-                    userEmailDataCheck,
-                    { data: { _studioUser: { $ne: null } } }
-                  ];
-                } else {
-                  where.$or = [
-                    userEmailDataCheck,
-                    studioUserDataCheck
-                  ];
-                }
-
+              case 'User':
+                where.$or = [
+                  { user: { type: null, email: { $iLike: `%${value}%` } } },
+                  { data: { _userEmail: { $iLike: `%${value}%` } } }
+                ];
                 break;
-              }
-
               case 'Data':
                 where.dataString = { $iLike: `%${value}%` };
                 break;
