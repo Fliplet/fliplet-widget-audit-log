@@ -102,6 +102,10 @@ export default {
               this.$set(this.query, 'userType', getUserTypeQuery(value));
             }
 
+            if (col.name === 'Session ID') {
+              this.$set(this.query, 'sessionId', value);
+            }
+
             // No need to assign where queries if value is empty
             if (!value) {
               return;
@@ -227,7 +231,7 @@ export default {
         return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
       }
 
-      return ['createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+      return ['sessionId', 'createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
     },
     getData() {
       setUIIsLoading(true);

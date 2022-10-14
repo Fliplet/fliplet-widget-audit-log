@@ -86,6 +86,12 @@ export const columns = [
     searchable: true
   },
   {
+    name: 'Session ID',
+    prop: 'sessionId',
+    format: 'code',
+    searchable: true
+  },
+  {
     name: 'Data',
     prop: 'dataString',
     type: 'data',
@@ -110,6 +116,9 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, col => !col.searchable),
     searchable: false
+  },
+  {
+    targets: filterIndex(columns, { name: 'Session ID' })
   },
   {
     targets: filterIndex(columns, { type: 'data' }),
