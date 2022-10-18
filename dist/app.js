@@ -18189,6 +18189,10 @@ __webpack_require__.r(__webpack_exports__);
             if (col.name === 'Category') {
               // Assign userType query regardless of value
               _this.$set(_this.query, 'userType', Object(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["getUserTypeQuery"])(value));
+            }
+
+            if (col.name === 'Session ID') {
+              _this.$set(_this.query, 'sessionId', value);
             } // No need to assign where queries if value is empty
 
 
@@ -18348,7 +18352,7 @@ __webpack_require__.r(__webpack_exports__);
         return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
       }
 
-      return ['createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+      return ['sessionId', 'createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
     },
     getData: function getData() {
       Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(true);
@@ -19031,6 +19035,11 @@ var columns = [{
   sortProp: 'user.email',
   searchable: true
 }, {
+  name: 'Session ID',
+  prop: 'sessionId',
+  format: 'code',
+  searchable: true
+}, {
   name: 'Data',
   prop: 'dataString',
   type: 'data',
@@ -19060,6 +19069,10 @@ var columnDefs = [{
     return !col.searchable;
   }),
   searchable: false
+}, {
+  targets: filterIndex(columns, {
+    name: 'Session ID'
+  })
 }, {
   targets: filterIndex(columns, {
     type: 'data'
