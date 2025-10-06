@@ -139,24 +139,24 @@ export default {
                 };
 
                 if (impersonateUserEmails) {
-                  _.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserEmails[2]}%`);
-                  _.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserEmails[2]}%`);
-                  _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEmails[1]}%`);
+                  Fliplet.Utils.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserEmails[2]}%`);
+                  Fliplet.Utils.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserEmails[2]}%`);
+                  Fliplet.Utils.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEmails[1]}%`);
 
                   where.$and = [
                     { $or: [userEmailDataCheck] },
                     studioUserDataCheck
                   ];
                 } else if (impersonateUserStartAsEmail) {
-                  _.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
-                  _.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
+                  Fliplet.Utils.set(userEmailDataCheck, 'user.email.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
+                  Fliplet.Utils.set(userEmailDataCheck, 'data._userEmail.$iLike', `%${impersonateUserStartAsEmail[1]}%`);
 
                   where.$and = [
                     { $or: [userEmailDataCheck] },
                     { data: { _studioUser: { $ne: null } } }
                   ];
                 } else if (impersonateUserEndAsEmail) {
-                  _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEndAsEmail[1]}%`);
+                  Fliplet.Utils.set(studioUserDataCheck, 'data._studioUser.email.$iLike', `%${impersonateUserEndAsEmail[1]}%`);
 
                   where.$and = [
                     { $or: [
@@ -188,7 +188,7 @@ export default {
             }
           });
 
-          this.query.where = _.isEmpty(where) ? undefined : where;
+          this.query.where = Fliplet.Utils.isEmpty(where) ? undefined : where;
 
           data.order.forEach(order => {
             const col = settings.aoColumns[order.column];
@@ -220,7 +220,7 @@ export default {
           Fliplet.Widget.autosize();
         }, 50);
       });
-      this.debouncedFilter = _.debounce((event, colIndex) => {
+      this.debouncedFilter = Fliplet.Utils.debounce((event, colIndex) => {
         this.table.columns(colIndex)
           .search(event.target.value)
           .draw();
@@ -261,7 +261,7 @@ export default {
       });
 
       return Fliplet.Organizations.get().then((organizations) => {
-        const organization = _.find(organizations, { id: getOrganizationId() });
+        const organization = Fliplet.Utils.find(organizations, { id: getOrganizationId() });
 
         orgName = organization && organization.name;
 
@@ -275,8 +275,8 @@ export default {
         const startDate = moment(this.query.startDate).format('YYYY-MM-DD');
         const endDate = moment(this.query.endDate).format('YYYY-MM-DD');
         const fileName = getAppId()
-          ? `audit-log-${_.kebabCase(getAppName().trim())}-${startDate}-${endDate}.csv`
-          : `audit-log-${_.kebabCase(orgName.trim())}-${startDate}-${endDate}.csv`;
+          ? `audit-log-${Fliplet.Utils.kebabCase(getAppName().trim())}-${startDate}-${endDate}.csv`
+          : `audit-log-${Fliplet.Utils.kebabCase(orgName.trim())}-${startDate}-${endDate}.csv`;
 
         setUIIsLoading(false);
 
@@ -298,7 +298,7 @@ export default {
             return col.data(log);
           }
 
-          return _.get(log, col.prop, null);
+          return Fliplet.Utils.get(log, col.prop, null);
         });
       });
       this.tableData.count = response.logs.length;
@@ -334,7 +334,7 @@ export default {
       input.select();
     },
     attachObservers() {
-      const debouncedClamp = _.debounce(clampJSONData, 300);
+      const debouncedClamp = Fliplet.Utils.debounce(clampJSONData, 300);
 
       $(window).on('resize', debouncedClamp);
       $(document)
