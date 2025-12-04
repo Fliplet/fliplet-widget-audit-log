@@ -3,10 +3,6 @@
     <div :class="{ 'is-loading': isLoading }" v-show="isInitialized">
       <div class="alert alert-info">
         <p>
-          <strong>This feature is currently in beta</strong><br>We are actively refining the functionality and collecting feedback. If you have any questions, please
-          <a href='#' @click.prevent="openChatOverlay">contact us</a>.
-        </p>
-        <p>
           <strong>View detailed Studio and app usage details</strong><br>See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.
         </p>
         <ol>
