@@ -17643,46 +17643,12 @@ var render = function () {
           ],
           class: { "is-loading": _vm.isLoading },
         },
-        [
-          _c("div", { staticClass: "alert alert-info" }, [
-            _c("p", [
-              _c("strong", [_vm._v("This feature is currently in beta")]),
-              _c("br"),
-              _vm._v(
-                "We are actively refining the functionality and collecting feedback. If you have any questions, please\n        "
-              ),
-              _c(
-                "a",
-                {
-                  attrs: { href: "#" },
-                  on: {
-                    click: function ($event) {
-                      $event.preventDefault()
-                      return _vm.openChatOverlay.apply(null, arguments)
-                    },
-                  },
-                },
-                [_vm._v("contact us")]
-              ),
-              _vm._v(".\n      "),
-            ]),
-            _vm._v(" "),
-            _vm._m(0),
-            _vm._v(" "),
-            _vm._m(1),
-            _vm._v(" "),
-            _vm._m(2),
-            _vm._v(" "),
-            _vm._m(3),
-          ]),
-          _vm._v(" "),
-          _c("RangeDatePicker"),
-        ],
+        [_vm._m(0), _vm._v(" "), _c("RangeDatePicker")],
         1
       ),
       _vm._v(" "),
       _vm.isLoading
-        ? _c("div", { staticClass: "overlay-loading" }, [_vm._m(4)])
+        ? _c("div", { staticClass: "overlay-loading" }, [_vm._m(1)])
         : _vm.hasError
         ? _c("div", [
             _c("div", { staticClass: "alert alert-danger" }, [
@@ -17706,96 +17672,102 @@ var staticRenderFns = [
     var _vm = this
     var _h = _vm.$createElement
     var _c = _vm._self._c || _h
-    return _c("p", [
-      _c("strong", [_vm._v("View detailed Studio and app usage details")]),
-      _c("br"),
-      _vm._v(
-        "See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.\n      "
-      ),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("ol", [
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#1" } }, [
-          _vm._v("Which emails have been sent and what's their status?"),
-        ]),
+    return _c("div", { staticClass: "alert alert-info" }, [
+      _c("p", [
+        _c("strong", [_vm._v("View detailed Studio and app usage details")]),
+        _c("br"),
+        _vm._v(
+          "See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.\n      "
+        ),
       ]),
       _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#2" } }, [
-          _vm._v(
-            "Which push notifications have been sent and what's their status?"
+      _c("ol", [
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#1" } },
+            [_vm._v("Which emails have been sent and what's their status?")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#2" } },
+            [
+              _vm._v(
+                "Which push notifications have been sent and what's their status?"
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#3" } },
+            [_vm._v("Who has recently logged in?")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#4" } },
+            [
+              _vm._v(
+                "Who has added/removed 2-factor authentication from their account?"
+              ),
+            ]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#5" } },
+            [_vm._v("What files have been uploaded, moved, or deleted?")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("li", [
+          _c(
+            "a",
+            { attrs: { href: "https://help.fliplet.com/audit-log/#6" } },
+            [_vm._v("What apps have been recently published and by who?")]
           ),
         ]),
       ]),
       _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#3" } }, [
-          _vm._v("Who has recently logged in?"),
+      _c("p", [
+        _vm._v("Our support site also contains "),
+        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/" } }, [
+          _vm._v("a full explanation of the feature"),
         ]),
+        _vm._v(" and "),
+        _c(
+          "a",
+          { attrs: { href: "https://help.fliplet.com/audit-log-dictionary/" } },
+          [_vm._v("an explanation of different log types")]
+        ),
+        _vm._v("."),
       ]),
       _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#4" } }, [
-          _vm._v(
-            "Who has added/removed 2-factor authentication from their account?"
-          ),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#5" } }, [
-          _vm._v("What files have been uploaded, moved, or deleted?"),
-        ]),
-      ]),
-      _vm._v(" "),
-      _c("li", [
-        _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/#6" } }, [
-          _vm._v("What apps have been recently published and by who?"),
-        ]),
-      ]),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v("Our support site also contains "),
-      _c("a", { attrs: { href: "https://help.fliplet.com/audit-log/" } }, [
-        _vm._v("a full explanation of the feature"),
-      ]),
-      _vm._v(" and "),
-      _c(
-        "a",
-        { attrs: { href: "https://help.fliplet.com/audit-log-dictionary/" } },
-        [_vm._v("an explanation of different log types")]
-      ),
-      _vm._v("."),
-    ])
-  },
-  function () {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("p", [
-      _vm._v(
-        "If you'd like to monitor audit logs and configure alerts with your own software, please "
-      ),
-      _c(
-        "a",
-        {
-          attrs: {
-            href: "https://developers.fliplet.com/API/core/organizations.html#audit-logs",
+      _c("p", [
+        _vm._v(
+          "If you'd like to monitor audit logs and configure alerts with your own software, please "
+        ),
+        _c(
+          "a",
+          {
+            attrs: {
+              href: "https://developers.fliplet.com/API/core/organizations.html#audit-logs",
+            },
           },
-        },
-        [_vm._v("review our technical documentation")]
-      ),
-      _vm._v("."),
+          [_vm._v("review our technical documentation")]
+        ),
+        _vm._v("."),
+      ]),
     ])
   },
   function () {
@@ -17831,10 +17803,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_LogTable__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(488);
 /* harmony import */ var _components_RangeDatePicker__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(509);
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(493);
-//
-//
-//
-//
 //
 //
 //
