@@ -28,7 +28,6 @@ import { trackEvent } from '../libs/tracking';
 import { setDates, getDateRange } from '../store';
 import { dateRanges } from '../config/dates';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
-
 // Pick an English locale closest to the device/browser setting
 const locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
 
@@ -89,7 +88,7 @@ export default {
       // Track event
       trackEvent({
         action: 'timeframe_changed',
-        label: _.get(_.find(dateRanges, { value: 'none' }), 'label')
+        label: Fliplet.Utils.get(Fliplet.Utils.find(dateRanges, { value: 'none' }), 'label')
       });
 
       // Set start date to the start of day
@@ -120,7 +119,7 @@ export default {
       // Track event
       trackEvent({
         action: 'timeframe_changed',
-        label: _.get(_.find(dateRanges, { value: range }), 'label')
+        label: Fliplet.Utils.get(Fliplet.Utils.find(dateRanges, { value: range }), 'label')
       });
 
       if (range === 'none') {

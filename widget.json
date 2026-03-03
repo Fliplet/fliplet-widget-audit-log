@@ -12,11 +12,11 @@
     "dependencies": [
       "vue.js",
       "fliplet-core",
+      "fliplet-utils",
       "fliplet-studio-ui",
       "font-awesome",
       "moment",
       "bootstrap-js",
-      "lodash",
       "fliplet-media"
     ],
     "assets": [

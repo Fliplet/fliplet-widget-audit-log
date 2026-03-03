@@ -12,7 +12,7 @@ function filterIndex(collection = [], predicate) {
     }
 
     // Predicate is an object
-    if (typeof predicate === 'object' && !_.isMatch(object, predicate)) {
+    if (typeof predicate === 'object' && !Fliplet.Utils.isMatch(object, predicate)) {
       return;
     }
 
@@ -110,7 +110,7 @@ export const columnDefs = [
   {
     targets: filterIndex(columns, { name: 'Category' }),
     render(value) {
-      return _.get(_.find(userTypes, { value }), 'label', null);
+      return Fliplet.Utils.get(Fliplet.Utils.find(userTypes, { value }), 'label', null);
     }
   },
   {
