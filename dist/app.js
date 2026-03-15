@@ -18005,7 +18005,6 @@ var render = function () {
                   ? _c("input", {
                       staticClass: "filter",
                       attrs: { type: "text" },
-                      domProps: { value: _vm.getFilterValue(col.name) },
                       on: {
                         click: function ($event) {
                           $event.stopPropagation()
@@ -18107,7 +18106,6 @@ __webpack_require__.r(__webpack_exports__);
       },
       userTypes: _config_log_table__WEBPACK_IMPORTED_MODULE_5__["userTypes"],
       columns: _config_log_table__WEBPACK_IMPORTED_MODULE_5__["columns"],
-      initialTypeFilter: Object(_store__WEBPACK_IMPORTED_MODULE_0__["getTypeFilter"])() || '',
       limits: [25, 50, 100, 500],
       query: {
         startDate: startDate,
@@ -18131,11 +18129,19 @@ __webpack_require__.r(__webpack_exports__);
       } // Build initial column search values from widget data
 
 
+      var self = this;
       var typeFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getTypeFilter"])() || '';
+      var dataFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getDataFilter"])() || '';
       var searchCols = this.columns.map(function (col) {
         if (col.name === 'Log type' && typeFilter) {
           return {
             search: typeFilter
+          };
+        }
+
+        if (col.name === 'Data' && dataFilter) {
+          return {
+            search: dataFilter
           };
         }
 
@@ -18311,6 +18317,22 @@ __webpack_require__.r(__webpack_exports__);
             Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIError"])(error);
           });
         }
+      }); // Pre-fill filter inputs from widget data
+
+      var filterPresets = {
+        'Log type': typeFilter,
+        'Data': dataFilter
+      };
+      Object.keys(filterPresets).forEach(function (colName) {
+        var value = filterPresets[colName];
+        if (!value) return;
+        var colIndex = self.columns.findIndex(function (col) {
+          return col.name === colName;
+        });
+
+        if (colIndex > -1) {
+          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
+        }
       });
       this.table.on('draw', function () {
         // Resize the overlay based on table size
@@ -18408,26 +18430,12 @@ __webpack_require__.r(__webpack_exports__);
 
       this.table.ajax.reload();
     },
-    getFilterValue: function getFilterValue(colName) {
-      if (colName === 'Log type') {
-        return this.initialTypeFilter;
-      }
-
-      return '';
-    },
     onChange: function onChange(event, colIndex) {
       var value = event.target.value;
       var sanitizedValue = value.replace(/\t/g, '');
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
-      } // Keep Vue's bound value in sync with user edits
-
-
-      var col = this.columns[colIndex];
-
-      if (col && col.name === 'Log type') {
-        this.initialTypeFilter = sanitizedValue;
       }
 
       this.debouncedFilter(event, colIndex);
@@ -18477,6 +18485,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAppName", function() { return getAppName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrganizationId", function() { return getOrganizationId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTypeFilter", function() { return getTypeFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataFilter", function() { return getDataFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDateRange", function() { return getInitialDateRange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDates", function() { return getInitialDates; });
 /* harmony import */ var _config_dates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(494);
@@ -18488,7 +18497,13 @@ var _widgetData;
 
 function getWidgetData() {
   if (!_widgetData) {
-    _widgetData = Fliplet.Widget.getData() || {};
+    var data = Fliplet.Widget.getData(); // Only cache if we got meaningful data; retry on next call otherwise
+
+    if (data && Object.keys(data).length) {
+      _widgetData = data;
+    }
+
+    return data || {};
   }
 
   return _widgetData;
@@ -18550,6 +18565,9 @@ function getOrganizationId() {
 }
 function getTypeFilter() {
   return getWidgetData().typeFilter || null;
+}
+function getDataFilter() {
+  return getWidgetData().dataFilter || null;
 }
 function getInitialDateRange() {
   return getWidgetData().dateRange || null;
@@ -19612,24 +19630,14 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
       startDate = initialDates.startDate;
       endDate = initialDates.endDate;
       customDates = true;
-      Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])('none');
     } else {
       // Use preset range (from widget data or default)
       var range = Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])() || Object(_store__WEBPACK_IMPORTED_MODULE_5__["getDateRange"])();
       var computed = this.calculateDateRange(range);
       startDate = computed.startDate;
       endDate = computed.endDate;
+    }
 
-      if (Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])()) {
-        Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])(range);
-      }
-    } // Update store so LogTable's first AJAX call uses these dates
-
-
-    Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDates"])({
-      startDate: startDate,
-      endDate: endDate
-    });
     return {
       dateRange: {
         startDate: startDate,
@@ -19642,6 +19650,19 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
       },
       customDates: customDates
     };
+  },
+  created: function created() {
+    // Sync computed dates to the store so LogTable's first AJAX call uses them
+    Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDates"])({
+      startDate: this.dateRange.startDate,
+      endDate: this.dateRange.endDate
+    });
+
+    if (this.customDates) {
+      Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])('none');
+    } else if (Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])()) {
+      Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])(Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])());
+    }
   },
   components: {
     DateDropdown: _DateDropdown__WEBPACK_IMPORTED_MODULE_2__["default"],

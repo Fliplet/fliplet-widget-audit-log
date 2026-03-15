@@ -231,14 +231,19 @@ export default {
           });
         }
       });
+
       // Pre-fill filter inputs from widget data
       var filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
+
       Object.keys(filterPresets).forEach(function(colName) {
         var value = filterPresets[colName];
+
         if (!value) return;
+
         var colIndex = self.columns.findIndex(function(col) {
           return col.name === colName;
         });
+
         if (colIndex > -1) {
           $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
         }
