@@ -93,6 +93,10 @@ export function getTypeFilter() {
   return getWidgetData().typeFilter || null;
 }
 
+export function getDataFilter() {
+  return getWidgetData().dataFilter || null;
+}
+
 export function getInitialDateRange() {
   return getWidgetData().dateRange || null;
 }

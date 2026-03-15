@@ -30,7 +30,7 @@
 
 <script>
 import { getDates, setUIIsInitialized, setUIIsLoading,
-  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter } from '../store';
+  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter, getDataFilter } from '../store';
 import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
@@ -73,10 +73,16 @@ export default {
       }
 
       // Build initial column search values from widget data
+      var self = this;
       var typeFilter = getTypeFilter() || '';
+      var dataFilter = getDataFilter() || '';
       var searchCols = this.columns.map(function(col) {
         if (col.name === 'Log type' && typeFilter) {
           return { search: typeFilter };
+        }
+
+        if (col.name === 'Data' && dataFilter) {
+          return { search: dataFilter };
         }
 
         return null;
@@ -225,16 +231,18 @@ export default {
           });
         }
       });
-      // Pre-fill the Log type filter input if typeFilter was provided
-      if (typeFilter) {
-        var logTypeColIndex = this.columns.findIndex(function(col) {
-          return col.name === 'Log type';
+      // Pre-fill filter inputs from widget data
+      var filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
+      Object.keys(filterPresets).forEach(function(colName) {
+        var value = filterPresets[colName];
+        if (!value) return;
+        var colIndex = self.columns.findIndex(function(col) {
+          return col.name === colName;
         });
-
-        if (logTypeColIndex > -1) {
-          $(this.$refs.table).find('thead tr:last th').eq(logTypeColIndex).find('input').val(typeFilter);
+        if (colIndex > -1) {
+          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
         }
-      }
+      });
 
       this.table.on('draw', () => {
         // Resize the overlay based on table size
