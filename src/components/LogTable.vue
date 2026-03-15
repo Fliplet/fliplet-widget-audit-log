@@ -19,7 +19,8 @@
               @input="onChange($event, colIndex)"
               @keydown="onKeydown($event)"
               type="text"
-              class="filter" />
+              class="filter"
+              :value="getFilterValue(col.name)" />
           </th>
         </tr>
       </thead>
@@ -29,7 +30,7 @@
 
 <script>
 import { getDates, setUIIsInitialized, setUIIsLoading,
-  setUIError, getAppId, getAppName, getOrganizationId } from '../store';
+  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter } from '../store';
 import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
@@ -50,6 +51,7 @@ export default {
       },
       userTypes,
       columns,
+      initialTypeFilter: getTypeFilter() || '',
       limits: [25, 50, 100, 500],
       query: {
         startDate,
@@ -70,6 +72,16 @@ export default {
         return;
       }
 
+      // Build initial column search values from widget data
+      var typeFilter = getTypeFilter() || '';
+      var searchCols = this.columns.map(function(col) {
+        if (col.name === 'Log type' && typeFilter) {
+          return { search: typeFilter };
+        }
+
+        return null;
+      });
+
       this.table = $(this.$refs.table).DataTable({
         scrollX: true,
         dom: 'lrtip',
@@ -80,6 +92,7 @@ export default {
         pageLength: this.query.limit,
         columns: this.columns,
         columnDefs,
+        searchCols,
         order: [[0, 'desc']],
         serverSide: true,
         ajax: (data, callback, settings) => {
@@ -314,12 +327,26 @@ export default {
 
       this.table.ajax.reload();
     },
+    getFilterValue(colName) {
+      if (colName === 'Log type') {
+        return this.initialTypeFilter;
+      }
+
+      return '';
+    },
     onChange(event, colIndex) {
       var value = event.target.value;
       var sanitizedValue = value.replace(/\t/g, '');
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
+      }
+
+      // Keep Vue's bound value in sync with user edits
+      var col = this.columns[colIndex];
+
+      if (col && col.name === 'Log type') {
+        this.initialTypeFilter = sanitizedValue;
       }
 
       this.debouncedFilter(event, colIndex);

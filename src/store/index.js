@@ -2,6 +2,18 @@ import { defaultDateRange } from '../config/dates';
 
 const dateRangeParts = defaultDateRange.split(',');
 
+// Lazy-loaded widget data from the `data` URL parameter (e.g. when opened as an overlay).
+// Fliplet.Widget.getData() may not be ready at module init time, so we defer reading it.
+var _widgetData;
+
+function getWidgetData() {
+  if (!_widgetData) {
+    _widgetData = Fliplet.Widget.getData() || {};
+  }
+
+  return _widgetData;
+}
+
 export const state = {
   ui: {
     isInitialized: false,
@@ -59,13 +71,31 @@ export function setUIError(error) {
 }
 
 export function getAppId() {
-  return state.appId;
+  return state.appId || getWidgetData().appId;
 }
 
 export function getAppName() {
-  return state.appName;
+  return state.appName || getWidgetData().appName;
 }
 
 export function getOrganizationId() {
-  return state.organizationId;
+  return state.organizationId || getWidgetData().organizationId;
+}
+
+export function getTypeFilter() {
+  return getWidgetData().typeFilter || null;
+}
+
+export function getInitialDateRange() {
+  return getWidgetData().dateRange || null;
+}
+
+export function getInitialDates() {
+  var wd = getWidgetData();
+
+  if (wd.startDate && wd.endDate) {
+    return { startDate: wd.startDate, endDate: wd.endDate };
+  }
+
+  return null;
 }
