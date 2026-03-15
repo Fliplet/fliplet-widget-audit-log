@@ -20,7 +20,7 @@
               @keydown="onKeydown($event)"
               type="text"
               class="filter"
-              :value="getFilterValue(col.name)" />
+              />
           </th>
         </tr>
       </thead>
@@ -51,7 +51,7 @@ export default {
       },
       userTypes,
       columns,
-      initialTypeFilter: getTypeFilter() || '',
+
       limits: [25, 50, 100, 500],
       query: {
         startDate,
@@ -225,6 +225,17 @@ export default {
           });
         }
       });
+      // Pre-fill the Log type filter input if typeFilter was provided
+      if (typeFilter) {
+        var logTypeColIndex = this.columns.findIndex(function(col) {
+          return col.name === 'Log type';
+        });
+
+        if (logTypeColIndex > -1) {
+          $(this.$refs.table).find('thead tr:last th').eq(logTypeColIndex).find('input').val(typeFilter);
+        }
+      }
+
       this.table.on('draw', () => {
         // Resize the overlay based on table size
         setTimeout(() => {
@@ -327,26 +338,12 @@ export default {
 
       this.table.ajax.reload();
     },
-    getFilterValue(colName) {
-      if (colName === 'Log type') {
-        return this.initialTypeFilter;
-      }
-
-      return '';
-    },
     onChange(event, colIndex) {
       var value = event.target.value;
       var sanitizedValue = value.replace(/\t/g, '');
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
-      }
-
-      // Keep Vue's bound value in sync with user edits
-      var col = this.columns[colIndex];
-
-      if (col && col.name === 'Log type') {
-        this.initialTypeFilter = sanitizedValue;
       }
 
       this.debouncedFilter(event, colIndex);

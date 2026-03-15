@@ -45,7 +45,6 @@ export default {
       startDate = initialDates.startDate;
       endDate = initialDates.endDate;
       customDates = true;
-      setDateRange('none');
     } else {
       // Use preset range (from widget data or default)
       const range = getInitialDateRange() || getDateRange();
@@ -53,14 +52,7 @@ export default {
 
       startDate = computed.startDate;
       endDate = computed.endDate;
-
-      if (getInitialDateRange()) {
-        setDateRange(range);
-      }
     }
-
-    // Update store so LogTable's first AJAX call uses these dates
-    setDates({ startDate, endDate });
 
     return {
       dateRange: {
@@ -74,6 +66,19 @@ export default {
       },
       customDates
     };
+  },
+  created() {
+    // Sync computed dates to the store so LogTable's first AJAX call uses them
+    setDates({
+      startDate: this.dateRange.startDate,
+      endDate: this.dateRange.endDate
+    });
+
+    if (this.customDates) {
+      setDateRange('none');
+    } else if (getInitialDateRange()) {
+      setDateRange(getInitialDateRange());
+    }
   },
   components: {
     DateDropdown,

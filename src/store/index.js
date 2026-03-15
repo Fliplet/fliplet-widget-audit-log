@@ -8,7 +8,14 @@ var _widgetData;
 
 function getWidgetData() {
   if (!_widgetData) {
-    _widgetData = Fliplet.Widget.getData() || {};
+    var data = Fliplet.Widget.getData();
+
+    // Only cache if we got meaningful data; retry on next call otherwise
+    if (data && Object.keys(data).length) {
+      _widgetData = data;
+    }
+
+    return data || {};
   }
 
   return _widgetData;
