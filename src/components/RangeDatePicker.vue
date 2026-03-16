@@ -36,9 +36,9 @@ export default {
   data() {
     const localeData = moment.localeData(locale);
     const initialDates = getInitialDates();
-    var customDates = false;
-    var startDate;
-    var endDate;
+    let customDates = false;
+    let startDate;
+    let endDate;
 
     if (initialDates) {
       // Explicit dates from caller — show as custom dates

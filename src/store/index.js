@@ -4,11 +4,11 @@ const dateRangeParts = defaultDateRange.split(',');
 
 // Lazy-loaded widget data from the `data` URL parameter (e.g. when opened as an overlay).
 // Fliplet.Widget.getData() may not be ready at module init time, so we defer reading it.
-var _widgetData;
+let _widgetData;
 
 function getWidgetData() {
   if (!_widgetData) {
-    var data = Fliplet.Widget.getData();
+    const data = Fliplet.Widget.getData();
 
     // Only cache if we got meaningful data; retry on next call otherwise
     if (data && Object.keys(data).length) {
@@ -102,11 +102,11 @@ export function getInitialDateRange() {
 }
 
 export function getInitialDates() {
-  var wd = getWidgetData();
+  const wd = getWidgetData();
 
   if (wd.startDate && wd.endDate) {
-    var start = moment(wd.startDate);
-    var end = moment(wd.endDate);
+    const start = moment(wd.startDate);
+    const end = moment(wd.endDate);
 
     if (!start.isValid() || !end.isValid() || start.isAfter(end)) {
       return null;
