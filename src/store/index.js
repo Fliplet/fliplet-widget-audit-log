@@ -105,7 +105,14 @@ export function getInitialDates() {
   var wd = getWidgetData();
 
   if (wd.startDate && wd.endDate) {
-    return { startDate: wd.startDate, endDate: wd.endDate };
+    var start = moment(wd.startDate);
+    var end = moment(wd.endDate);
+
+    if (!start.isValid() || !end.isValid() || start.isAfter(end)) {
+      return null;
+    }
+
+    return { startDate: start.toISOString(), endDate: end.toISOString() };
   }
 
   return null;

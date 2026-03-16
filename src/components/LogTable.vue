@@ -73,10 +73,10 @@ export default {
       }
 
       // Build initial column search values from widget data
-      var self = this;
-      var typeFilter = getTypeFilter() || '';
-      var dataFilter = getDataFilter() || '';
-      var searchCols = this.columns.map(function(col) {
+      const self = this;
+      const typeFilter = getTypeFilter() || '';
+      const dataFilter = getDataFilter() || '';
+      const searchCols = this.columns.map(function(col) {
         if (col.name === 'Log type' && typeFilter) {
           return { search: typeFilter };
         }
@@ -114,7 +114,7 @@ export default {
               return;
             }
 
-            var value = (col.search.value || '').trim();
+            const value = (col.search.value || '').trim();
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -233,14 +233,14 @@ export default {
       });
 
       // Pre-fill filter inputs from widget data
-      var filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
+      const filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
 
       Object.keys(filterPresets).forEach(function(colName) {
-        var value = filterPresets[colName];
+        const value = filterPresets[colName];
 
         if (!value) return;
 
-        var colIndex = self.columns.findIndex(function(col) {
+        const colIndex = self.columns.findIndex(function(col) {
           return col.name === colName;
         });
 
@@ -352,8 +352,8 @@ export default {
       this.table.ajax.reload();
     },
     onChange(event, colIndex) {
-      var value = event.target.value;
-      var sanitizedValue = value.replace(/\t/g, '');
+      const value = event.target.value;
+      const sanitizedValue = value.replace(/\t/g, '');
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
