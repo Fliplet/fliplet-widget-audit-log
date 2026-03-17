@@ -19,7 +19,8 @@
               @input="onChange($event, colIndex)"
               @keydown="onKeydown($event)"
               type="text"
-              class="filter" />
+              class="filter"
+              />
           </th>
         </tr>
       </thead>
@@ -29,7 +30,7 @@
 
 <script>
 import { getDates, setUIIsInitialized, setUIIsLoading,
-  setUIError, getAppId, getAppName, getOrganizationId } from '../store';
+  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter, getDataFilter } from '../store';
 import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
@@ -50,6 +51,7 @@ export default {
       },
       userTypes,
       columns,
+
       limits: [25, 50, 100, 500],
       query: {
         startDate,
@@ -70,6 +72,22 @@ export default {
         return;
       }
 
+      // Build initial column search values from widget data
+      const self = this;
+      const typeFilter = getTypeFilter() || '';
+      const dataFilter = getDataFilter() || '';
+      const searchCols = this.columns.map(function(col) {
+        if (col.name === 'Log type' && typeFilter) {
+          return { search: typeFilter };
+        }
+
+        if (col.name === 'Data' && dataFilter) {
+          return { search: dataFilter };
+        }
+
+        return null;
+      });
+
       this.table = $(this.$refs.table).DataTable({
         scrollX: true,
         dom: 'lrtip',
@@ -80,6 +98,7 @@ export default {
         pageLength: this.query.limit,
         columns: this.columns,
         columnDefs,
+        searchCols,
         order: [[0, 'desc']],
         serverSide: true,
         ajax: (data, callback, settings) => {
@@ -95,7 +114,7 @@ export default {
               return;
             }
 
-            var value = (col.search.value || '').trim();
+            const value = (col.search.value || '').trim();
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -212,6 +231,24 @@ export default {
           });
         }
       });
+
+      // Pre-fill filter inputs from widget data
+      const filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
+
+      Object.keys(filterPresets).forEach(function(colName) {
+        const value = filterPresets[colName];
+
+        if (!value) return;
+
+        const colIndex = self.columns.findIndex(function(col) {
+          return col.name === colName;
+        });
+
+        if (colIndex > -1) {
+          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
+        }
+      });
+
       this.table.on('draw', () => {
         // Resize the overlay based on table size
         setTimeout(() => {
@@ -315,8 +352,8 @@ export default {
       this.table.ajax.reload();
     },
     onChange(event, colIndex) {
-      var value = event.target.value;
-      var sanitizedValue = value.replace(/\t/g, '');
+      const value = event.target.value;
+      const sanitizedValue = value.replace(/\t/g, '');
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;

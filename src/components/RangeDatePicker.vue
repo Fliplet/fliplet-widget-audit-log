@@ -25,17 +25,34 @@ import DateRangePicker from 'vue2-daterange-picker';
 import DateDropdown from './DateDropdown';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
-import { setDates, getDateRange } from '../store';
+import { setDates, setDateRange, getDateRange, getInitialDates, getInitialDateRange } from '../store';
 import { dateRanges } from '../config/dates';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
+
 // Pick an English locale closest to the device/browser setting
 const locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
 
 export default {
   data() {
     const localeData = moment.localeData(locale);
-    const range = getDateRange();
-    const { startDate, endDate } = this.calculateDateRange(range);
+    const initialDates = getInitialDates();
+    let customDates = false;
+    let startDate;
+    let endDate;
+
+    if (initialDates) {
+      // Explicit dates from caller — show as custom dates
+      startDate = initialDates.startDate;
+      endDate = initialDates.endDate;
+      customDates = true;
+    } else {
+      // Use preset range (from widget data or default)
+      const range = getInitialDateRange() || getDateRange();
+      const computed = this.calculateDateRange(range);
+
+      startDate = computed.startDate;
+      endDate = computed.endDate;
+    }
 
     return {
       dateRange: {
@@ -47,8 +64,21 @@ export default {
         separator: ' – ',
         firstDay: localeData.firstDayOfWeek()
       },
-      customDates: false
+      customDates
     };
+  },
+  created() {
+    // Sync computed dates to the store so LogTable's first AJAX call uses them
+    setDates({
+      startDate: this.dateRange.startDate,
+      endDate: this.dateRange.endDate
+    });
+
+    if (this.customDates) {
+      setDateRange('none');
+    } else if (getInitialDateRange()) {
+      setDateRange(getInitialDateRange());
+    }
   },
   components: {
     DateDropdown,

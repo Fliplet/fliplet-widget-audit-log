@@ -18083,6 +18083,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -18125,8 +18126,27 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.table) {
         return;
-      }
+      } // Build initial column search values from widget data
 
+
+      var self = this;
+      var typeFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getTypeFilter"])() || '';
+      var dataFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getDataFilter"])() || '';
+      var searchCols = this.columns.map(function (col) {
+        if (col.name === 'Log type' && typeFilter) {
+          return {
+            search: typeFilter
+          };
+        }
+
+        if (col.name === 'Data' && dataFilter) {
+          return {
+            search: dataFilter
+          };
+        }
+
+        return null;
+      });
       this.table = $(this.$refs.table).DataTable({
         scrollX: true,
         dom: 'lrtip',
@@ -18137,6 +18157,7 @@ __webpack_require__.r(__webpack_exports__);
         pageLength: this.query.limit,
         columns: this.columns,
         columnDefs: _config_log_table__WEBPACK_IMPORTED_MODULE_5__["columnDefs"],
+        searchCols: searchCols,
         order: [[0, 'desc']],
         serverSide: true,
         ajax: function ajax(data, callback, settings) {
@@ -18215,20 +18236,15 @@ __webpack_require__.r(__webpack_exports__);
                   };
 
                   if (impersonateUserEmails) {
-                    _.set(userEmailDataCheck, 'user.email.$iLike', "%".concat(impersonateUserEmails[2], "%"));
-
-                    _.set(userEmailDataCheck, 'data._userEmail.$iLike', "%".concat(impersonateUserEmails[2], "%"));
-
-                    _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', "%".concat(impersonateUserEmails[1], "%"));
-
+                    Fliplet.Utils.set(userEmailDataCheck, 'user.email.$iLike', "%".concat(impersonateUserEmails[2], "%"));
+                    Fliplet.Utils.set(userEmailDataCheck, 'data._userEmail.$iLike', "%".concat(impersonateUserEmails[2], "%"));
+                    Fliplet.Utils.set(studioUserDataCheck, 'data._studioUser.email.$iLike', "%".concat(impersonateUserEmails[1], "%"));
                     where.$and = [{
                       $or: [userEmailDataCheck]
                     }, studioUserDataCheck];
                   } else if (impersonateUserStartAsEmail) {
-                    _.set(userEmailDataCheck, 'user.email.$iLike', "%".concat(impersonateUserStartAsEmail[1], "%"));
-
-                    _.set(userEmailDataCheck, 'data._userEmail.$iLike', "%".concat(impersonateUserStartAsEmail[1], "%"));
-
+                    Fliplet.Utils.set(userEmailDataCheck, 'user.email.$iLike', "%".concat(impersonateUserStartAsEmail[1], "%"));
+                    Fliplet.Utils.set(userEmailDataCheck, 'data._userEmail.$iLike', "%".concat(impersonateUserStartAsEmail[1], "%"));
                     where.$and = [{
                       $or: [userEmailDataCheck]
                     }, {
@@ -18239,8 +18255,7 @@ __webpack_require__.r(__webpack_exports__);
                       }
                     }];
                   } else if (impersonateUserEndAsEmail) {
-                    _.set(studioUserDataCheck, 'data._studioUser.email.$iLike', "%".concat(impersonateUserEndAsEmail[1], "%"));
-
+                    Fliplet.Utils.set(studioUserDataCheck, 'data._studioUser.email.$iLike', "%".concat(impersonateUserEndAsEmail[1], "%"));
                     where.$and = [{
                       $or: [{
                         user: {
@@ -18282,7 +18297,7 @@ __webpack_require__.r(__webpack_exports__);
                 break;
             }
           });
-          _this.query.where = _.isEmpty(where) ? undefined : where;
+          _this.query.where = Fliplet.Utils.isEmpty(where) ? undefined : where;
           data.order.forEach(function (order) {
             var col = settings.aoColumns[order.column];
             _this.query.sort = col.sortProp || col.prop;
@@ -18302,6 +18317,22 @@ __webpack_require__.r(__webpack_exports__);
             Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIError"])(error);
           });
         }
+      }); // Pre-fill filter inputs from widget data
+
+      var filterPresets = {
+        'Log type': typeFilter,
+        'Data': dataFilter
+      };
+      Object.keys(filterPresets).forEach(function (colName) {
+        var value = filterPresets[colName];
+        if (!value) return;
+        var colIndex = self.columns.findIndex(function (col) {
+          return col.name === colName;
+        });
+
+        if (colIndex > -1) {
+          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
+        }
       });
       this.table.on('draw', function () {
         // Resize the overlay based on table size
@@ -18311,7 +18342,7 @@ __webpack_require__.r(__webpack_exports__);
           Fliplet.Widget.autosize();
         }, 50);
       });
-      this.debouncedFilter = _.debounce(function (event, colIndex) {
+      this.debouncedFilter = Fliplet.Utils.debounce(function (event, colIndex) {
         _this.table.columns(colIndex).search(event.target.value).draw();
       }, 500);
     },
@@ -18349,10 +18380,9 @@ __webpack_require__.r(__webpack_exports__);
         action: 'export_csv'
       });
       return Fliplet.Organizations.get().then(function (organizations) {
-        var organization = _.find(organizations, {
+        var organization = Fliplet.Utils.find(organizations, {
           id: Object(_store__WEBPACK_IMPORTED_MODULE_0__["getOrganizationId"])()
         });
-
         orgName = organization && organization.name;
         return Object(_services_logs__WEBPACK_IMPORTED_MODULE_1__["getLogs"])(Object.assign({}, _this2.query, {
           format: 'csv',
@@ -18363,7 +18393,7 @@ __webpack_require__.r(__webpack_exports__);
       }).then(function (data) {
         var startDate = moment(_this2.query.startDate).format('YYYY-MM-DD');
         var endDate = moment(_this2.query.endDate).format('YYYY-MM-DD');
-        var fileName = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getAppId"])() ? "audit-log-".concat(_.kebabCase(Object(_store__WEBPACK_IMPORTED_MODULE_0__["getAppName"])().trim()), "-").concat(startDate, "-").concat(endDate, ".csv") : "audit-log-".concat(_.kebabCase(orgName.trim()), "-").concat(startDate, "-").concat(endDate, ".csv");
+        var fileName = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getAppId"])() ? "audit-log-".concat(Fliplet.Utils.kebabCase(Object(_store__WEBPACK_IMPORTED_MODULE_0__["getAppName"])().trim()), "-").concat(startDate, "-").concat(endDate, ".csv") : "audit-log-".concat(Fliplet.Utils.kebabCase(orgName.trim()), "-").concat(startDate, "-").concat(endDate, ".csv");
         Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(false);
         return Fliplet.Media.Files.Storage.saveAs({
           data: data,
@@ -18385,7 +18415,7 @@ __webpack_require__.r(__webpack_exports__);
             return col.data(log);
           }
 
-          return _.get(log, col.prop, null);
+          return Fliplet.Utils.get(log, col.prop, null);
         });
       });
       this.tableData.count = response.logs.length;
@@ -18420,8 +18450,7 @@ __webpack_require__.r(__webpack_exports__);
       input.select();
     },
     attachObservers: function attachObservers() {
-      var debouncedClamp = _.debounce(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["clampJSONData"], 300);
-
+      var debouncedClamp = Fliplet.Utils.debounce(_libs_logs__WEBPACK_IMPORTED_MODULE_6__["clampJSONData"], 300);
       $(window).on('resize', debouncedClamp);
       $(document).on('click', '[data-json] .btn-toggle', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["toggleClamping"]).on('click', '[data-json] .btn-inspect', _libs_logs__WEBPACK_IMPORTED_MODULE_6__["inspectData"]);
     }
@@ -18455,9 +18484,31 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAppId", function() { return getAppId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getAppName", function() { return getAppName; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrganizationId", function() { return getOrganizationId; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTypeFilter", function() { return getTypeFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataFilter", function() { return getDataFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDateRange", function() { return getInitialDateRange; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDates", function() { return getInitialDates; });
 /* harmony import */ var _config_dates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(494);
 
-var dateRangeParts = _config_dates__WEBPACK_IMPORTED_MODULE_0__["defaultDateRange"].split(',');
+var dateRangeParts = _config_dates__WEBPACK_IMPORTED_MODULE_0__["defaultDateRange"].split(','); // Lazy-loaded widget data from the `data` URL parameter (e.g. when opened as an overlay).
+// Fliplet.Widget.getData() may not be ready at module init time, so we defer reading it.
+
+var _widgetData;
+
+function getWidgetData() {
+  if (!_widgetData) {
+    var data = Fliplet.Widget.getData(); // Only cache if we got meaningful data; retry on next call otherwise
+
+    if (data && Object.keys(data).length) {
+      _widgetData = data;
+    }
+
+    return data || {};
+  }
+
+  return _widgetData;
+}
+
 var state = {
   ui: {
     isInitialized: false,
@@ -18504,13 +18555,41 @@ function setUIError(error) {
   state.ui.error = error;
 }
 function getAppId() {
-  return state.appId;
+  return state.appId || getWidgetData().appId;
 }
 function getAppName() {
-  return state.appName;
+  return state.appName || getWidgetData().appName;
 }
 function getOrganizationId() {
-  return state.organizationId;
+  return state.organizationId || getWidgetData().organizationId;
+}
+function getTypeFilter() {
+  return getWidgetData().typeFilter || null;
+}
+function getDataFilter() {
+  return getWidgetData().dataFilter || null;
+}
+function getInitialDateRange() {
+  return getWidgetData().dateRange || null;
+}
+function getInitialDates() {
+  var wd = getWidgetData();
+
+  if (wd.startDate && wd.endDate) {
+    var start = moment(wd.startDate);
+    var end = moment(wd.endDate);
+
+    if (!start.isValid() || !end.isValid() || start.isAfter(end)) {
+      return null;
+    }
+
+    return {
+      startDate: start.toISOString(),
+      endDate: end.toISOString()
+    };
+  }
+
+  return null;
 }
 
 /***/ }),
@@ -18925,7 +19004,7 @@ function filterIndex() {
     } // Predicate is an object
 
 
-    if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(predicate) === 'object' && !_.isMatch(object, predicate)) {
+    if (_babel_runtime_helpers_typeof__WEBPACK_IMPORTED_MODULE_0___default()(predicate) === 'object' && !Fliplet.Utils.isMatch(object, predicate)) {
       return;
     }
 
@@ -19028,7 +19107,7 @@ var columnDefs = [{
     name: 'Category'
   }),
   render: function render(value) {
-    return _.get(_.find(userTypes, {
+    return Fliplet.Utils.get(Fliplet.Utils.find(userTypes, {
       value: value
     }), 'label', null);
   }
@@ -19548,11 +19627,23 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     var localeData = moment.localeData(locale);
-    var range = Object(_store__WEBPACK_IMPORTED_MODULE_5__["getDateRange"])();
+    var initialDates = Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDates"])();
+    var customDates = false;
+    var startDate;
+    var endDate;
 
-    var _this$calculateDateRa = this.calculateDateRange(range),
-        startDate = _this$calculateDateRa.startDate,
-        endDate = _this$calculateDateRa.endDate;
+    if (initialDates) {
+      // Explicit dates from caller — show as custom dates
+      startDate = initialDates.startDate;
+      endDate = initialDates.endDate;
+      customDates = true;
+    } else {
+      // Use preset range (from widget data or default)
+      var range = Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])() || Object(_store__WEBPACK_IMPORTED_MODULE_5__["getDateRange"])();
+      var computed = this.calculateDateRange(range);
+      startDate = computed.startDate;
+      endDate = computed.endDate;
+    }
 
     return {
       dateRange: {
@@ -19564,8 +19655,21 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
         separator: ' – ',
         firstDay: localeData.firstDayOfWeek()
       },
-      customDates: false
+      customDates: customDates
     };
+  },
+  created: function created() {
+    // Sync computed dates to the store so LogTable's first AJAX call uses them
+    Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDates"])({
+      startDate: this.dateRange.startDate,
+      endDate: this.dateRange.endDate
+    });
+
+    if (this.customDates) {
+      Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])('none');
+    } else if (Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])()) {
+      Object(_store__WEBPACK_IMPORTED_MODULE_5__["setDateRange"])(Object(_store__WEBPACK_IMPORTED_MODULE_5__["getInitialDateRange"])());
+    }
   },
   components: {
     DateDropdown: _DateDropdown__WEBPACK_IMPORTED_MODULE_2__["default"],
@@ -19613,7 +19717,7 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
 
       Object(_libs_tracking__WEBPACK_IMPORTED_MODULE_4__["trackEvent"])({
         action: 'timeframe_changed',
-        label: _.get(_.find(_config_dates__WEBPACK_IMPORTED_MODULE_6__["dateRanges"], {
+        label: Fliplet.Utils.get(Fliplet.Utils.find(_config_dates__WEBPACK_IMPORTED_MODULE_6__["dateRanges"], {
           value: 'none'
         }), 'label')
       }); // Set start date to the start of day
@@ -19638,7 +19742,7 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
       // Track event
       Object(_libs_tracking__WEBPACK_IMPORTED_MODULE_4__["trackEvent"])({
         action: 'timeframe_changed',
-        label: _.get(_.find(_config_dates__WEBPACK_IMPORTED_MODULE_6__["dateRanges"], {
+        label: Fliplet.Utils.get(Fliplet.Utils.find(_config_dates__WEBPACK_IMPORTED_MODULE_6__["dateRanges"], {
           value: range
         }), 'label')
       });
@@ -19647,9 +19751,9 @@ var locale = navigator.language.indexOf('en') === 0 ? navigator.language : 'en';
         return;
       }
 
-      var _this$calculateDateRa2 = this.calculateDateRange(range),
-          startDate = _this$calculateDateRa2.startDate,
-          endDate = _this$calculateDateRa2.endDate;
+      var _this$calculateDateRa = this.calculateDateRange(range),
+          startDate = _this$calculateDateRa.startDate,
+          endDate = _this$calculateDateRa.endDate;
 
       this.customDates = false;
       this.dateRange.startDate = startDate;
