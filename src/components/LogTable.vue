@@ -30,7 +30,8 @@
 
 <script>
 import { getDates, setUIIsInitialized, setUIIsLoading,
-  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter, getDataFilter } from '../store';
+  setUIError, getAppId, getAppName, getOrganizationId, getTypeFilter, getDataFilter,
+  initFiltersFromWidgetData, setTypeFilter, setDataFilter } from '../store';
 import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
@@ -72,7 +73,9 @@ export default {
         return;
       }
 
-      // Build initial column search values from widget data
+      // Initialize filter state from widget data so it persists across reloads
+      initFiltersFromWidgetData();
+
       const self = this;
       const typeFilter = getTypeFilter() || '';
       const dataFilter = getDataFilter() || '';
@@ -109,12 +112,25 @@ export default {
 
           const where = {};
 
+          // Read stored filters for columns that have no user-entered value
+          const storedTypeFilter = getTypeFilter() || '';
+          const storedDataFilter = getDataFilter() || '';
+
           data.columns.forEach((col) => {
             if (!col.searchable) {
               return;
             }
 
-            const value = (col.search.value || '').trim();
+            let value = (col.search.value || '').trim();
+
+            // Apply stored filters when no user-entered value exists
+            if (!value && col.name === 'Log type') {
+              value = storedTypeFilter;
+            }
+
+            if (!value && col.name === 'Data') {
+              value = storedDataFilter;
+            }
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -233,21 +249,30 @@ export default {
       });
 
       // Pre-fill filter inputs from widget data
+      // Use setTimeout to allow DataTables to finish DOM setup (including scrollX header cloning)
       const filterPresets = { 'Log type': typeFilter, 'Data': dataFilter };
 
-      Object.keys(filterPresets).forEach(function(colName) {
-        const value = filterPresets[colName];
+      setTimeout(function() {
+        // Try both the original table and DataTables wrapper (scrollX clones the header)
+        var $wrapper = $(self.$refs.table).closest('.dataTables_wrapper');
+        var $headers = $wrapper.length
+          ? $wrapper.find('.dataTables_scrollHead thead th, thead th')
+          : $(self.$refs.table).find('thead th');
 
-        if (!value) return;
+        Object.keys(filterPresets).forEach(function(colName) {
+          var value = filterPresets[colName];
 
-        const colIndex = self.columns.findIndex(function(col) {
-          return col.name === colName;
+          if (!value) return;
+
+          var colIndex = self.columns.findIndex(function(col) {
+            return col.name === colName;
+          });
+
+          if (colIndex > -1) {
+            $headers.eq(colIndex).find('input').val(value);
+          }
         });
-
-        if (colIndex > -1) {
-          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
-        }
-      });
+      }, 0);
 
       this.table.on('draw', () => {
         // Resize the overlay based on table size
@@ -357,6 +382,17 @@ export default {
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
+      }
+
+      // Sync user-entered values to filter store so AJAX callback uses them
+      const col = this.columns[colIndex];
+
+      if (col && col.name === 'Log type') {
+        setTypeFilter(sanitizedValue);
+      }
+
+      if (col && col.name === 'Data') {
+        setDataFilter(sanitizedValue);
       }
 
       this.debouncedFilter(event, colIndex);

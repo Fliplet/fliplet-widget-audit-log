@@ -32,6 +32,10 @@ export const state = {
     endDate: moment().toISOString()
   },
   dateRange: defaultDateRange,
+  filters: {
+    typeFilter: null,
+    dataFilter: null
+  },
   appId: Fliplet.Env.get('appId'),
   appName: Fliplet.Env.get('appName'),
   organizationId: Fliplet.Env.get('organizationId')
@@ -90,11 +94,31 @@ export function getOrganizationId() {
 }
 
 export function getTypeFilter() {
-  return getWidgetData().typeFilter || null;
+  return state.filters.typeFilter || getWidgetData().typeFilter || null;
 }
 
 export function getDataFilter() {
-  return getWidgetData().dataFilter || null;
+  return state.filters.dataFilter || getWidgetData().dataFilter || null;
+}
+
+export function initFiltersFromWidgetData() {
+  const wd = getWidgetData();
+
+  if (wd.typeFilter) {
+    state.filters.typeFilter = wd.typeFilter;
+  }
+
+  if (wd.dataFilter) {
+    state.filters.dataFilter = wd.dataFilter;
+  }
+}
+
+export function setTypeFilter(value) {
+  state.filters.typeFilter = value || null;
+}
+
+export function setDataFilter(value) {
+  state.filters.dataFilter = value || null;
 }
 
 export function getInitialDateRange() {

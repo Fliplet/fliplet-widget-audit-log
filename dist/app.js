@@ -18126,9 +18126,10 @@ __webpack_require__.r(__webpack_exports__);
 
       if (this.table) {
         return;
-      } // Build initial column search values from widget data
+      } // Initialize filter state from widget data so it persists across reloads
 
 
+      Object(_store__WEBPACK_IMPORTED_MODULE_0__["initFiltersFromWidgetData"])();
       var self = this;
       var typeFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getTypeFilter"])() || '';
       var dataFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getDataFilter"])() || '';
@@ -18167,13 +18168,24 @@ __webpack_require__.r(__webpack_exports__);
 
           _this.query.startDate = startDate;
           _this.query.endDate = endDate;
-          var where = {};
+          var where = {}; // Read stored filters for columns that have no user-entered value
+
+          var storedTypeFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getTypeFilter"])() || '';
+          var storedDataFilter = Object(_store__WEBPACK_IMPORTED_MODULE_0__["getDataFilter"])() || '';
           data.columns.forEach(function (col) {
             if (!col.searchable) {
               return;
             }
 
-            var value = (col.search.value || '').trim();
+            var value = (col.search.value || '').trim(); // Apply stored filters when no user-entered value exists
+
+            if (!value && col.name === 'Log type') {
+              value = storedTypeFilter;
+            }
+
+            if (!value && col.name === 'Data') {
+              value = storedDataFilter;
+            }
 
             if (col.name === 'Category') {
               // Assign userType query regardless of value
@@ -18318,22 +18330,28 @@ __webpack_require__.r(__webpack_exports__);
           });
         }
       }); // Pre-fill filter inputs from widget data
+      // Use setTimeout to allow DataTables to finish DOM setup (including scrollX header cloning)
 
       var filterPresets = {
         'Log type': typeFilter,
         'Data': dataFilter
       };
-      Object.keys(filterPresets).forEach(function (colName) {
-        var value = filterPresets[colName];
-        if (!value) return;
-        var colIndex = self.columns.findIndex(function (col) {
-          return col.name === colName;
-        });
+      setTimeout(function () {
+        // Try both the original table and DataTables wrapper (scrollX clones the header)
+        var $wrapper = $(self.$refs.table).closest('.dataTables_wrapper');
+        var $headers = $wrapper.length ? $wrapper.find('.dataTables_scrollHead thead th, thead th') : $(self.$refs.table).find('thead th');
+        Object.keys(filterPresets).forEach(function (colName) {
+          var value = filterPresets[colName];
+          if (!value) return;
+          var colIndex = self.columns.findIndex(function (col) {
+            return col.name === colName;
+          });
 
-        if (colIndex > -1) {
-          $(self.$refs.table).find('thead tr:last th').eq(colIndex).find('input').val(value);
-        }
-      });
+          if (colIndex > -1) {
+            $headers.eq(colIndex).find('input').val(value);
+          }
+        });
+      }, 0);
       this.table.on('draw', function () {
         // Resize the overlay based on table size
         setTimeout(function () {
@@ -18436,6 +18454,17 @@ __webpack_require__.r(__webpack_exports__);
 
       if (sanitizedValue !== value) {
         event.target.value = sanitizedValue;
+      } // Sync user-entered values to filter store so AJAX callback uses them
+
+
+      var col = this.columns[colIndex];
+
+      if (col && col.name === 'Log type') {
+        Object(_store__WEBPACK_IMPORTED_MODULE_0__["setTypeFilter"])(sanitizedValue);
+      }
+
+      if (col && col.name === 'Data') {
+        Object(_store__WEBPACK_IMPORTED_MODULE_0__["setDataFilter"])(sanitizedValue);
       }
 
       this.debouncedFilter(event, colIndex);
@@ -18486,6 +18515,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getOrganizationId", function() { return getOrganizationId; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getTypeFilter", function() { return getTypeFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getDataFilter", function() { return getDataFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "initFiltersFromWidgetData", function() { return initFiltersFromWidgetData; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setTypeFilter", function() { return setTypeFilter; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "setDataFilter", function() { return setDataFilter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDateRange", function() { return getInitialDateRange; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "getInitialDates", function() { return getInitialDates; });
 /* harmony import */ var _config_dates__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(494);
@@ -18520,6 +18552,10 @@ var state = {
     endDate: moment().toISOString()
   },
   dateRange: _config_dates__WEBPACK_IMPORTED_MODULE_0__["defaultDateRange"],
+  filters: {
+    typeFilter: null,
+    dataFilter: null
+  },
   appId: Fliplet.Env.get('appId'),
   appName: Fliplet.Env.get('appName'),
   organizationId: Fliplet.Env.get('organizationId')
@@ -18564,10 +18600,27 @@ function getOrganizationId() {
   return state.organizationId || getWidgetData().organizationId;
 }
 function getTypeFilter() {
-  return getWidgetData().typeFilter || null;
+  return state.filters.typeFilter || getWidgetData().typeFilter || null;
 }
 function getDataFilter() {
-  return getWidgetData().dataFilter || null;
+  return state.filters.dataFilter || getWidgetData().dataFilter || null;
+}
+function initFiltersFromWidgetData() {
+  var wd = getWidgetData();
+
+  if (wd.typeFilter) {
+    state.filters.typeFilter = wd.typeFilter;
+  }
+
+  if (wd.dataFilter) {
+    state.filters.dataFilter = wd.dataFilter;
+  }
+}
+function setTypeFilter(value) {
+  state.filters.typeFilter = value || null;
+}
+function setDataFilter(value) {
+  state.filters.dataFilter = value || null;
 }
 function getInitialDateRange() {
   return getWidgetData().dateRange || null;
