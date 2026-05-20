@@ -20,6 +20,7 @@
               @keydown="onKeydown($event)"
               type="text"
               class="filter"
+              :placeholder="col.placeholder || ''"
               />
           </th>
         </tr>
@@ -156,6 +157,14 @@ export default {
                 break;
 
               case 'User': {
+                // Support `id:<n>` syntax → filter directly on userId
+                const userIdMatch = value.match(/^id:\s*(\d+)\s*$/i);
+
+                if (userIdMatch) {
+                  where.userId = parseInt(userIdMatch[1], 10);
+                  break;
+                }
+
                 // Regular expression to match email string to filter
                 const regExToMatchEmailStr = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
 
