@@ -71,7 +71,17 @@ export const columns = [
     name: 'Log type',
     prop: 'type',
     format: 'code',
-    searchable: true
+    searchable: true,
+    data(log) {
+      const type = escapeHtml(log.type || '');
+      const description = log.typeDescription;
+
+      if (!description) {
+        return type;
+      }
+
+      return `<span title="${escapeHtml(description)}">${type}</span>`;
+    }
   },
   {
     name: 'App',
