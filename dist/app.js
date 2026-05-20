@@ -18369,7 +18369,7 @@ __webpack_require__.r(__webpack_exports__);
         return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
       }
 
-      return ['sessionId', 'createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+      return ['sessionId', 'createdAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'dataString'];
     },
     getData: function getData() {
       Object(_store__WEBPACK_IMPORTED_MODULE_0__["setUIIsLoading"])(true);
@@ -19123,7 +19123,17 @@ var columns = [{
   name: 'Log type',
   prop: 'type',
   format: 'code',
-  searchable: true
+  searchable: true,
+  data: function data(log) {
+    var type = escapeHtml(log.type || '');
+    var description = log.typeDescription;
+
+    if (!description) {
+      return type;
+    }
+
+    return "<span title=\"".concat(escapeHtml(description), "\">").concat(type, "</span>");
+  }
 }, {
   name: 'App',
   prop: 'app.name',

@@ -293,7 +293,7 @@ export default {
         return ['id', 'createdAt', 'updatedAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'data', 'requestId', 'sessionId', 'userId', 'appId', 'dataSourceEntryId', 'dataSourceId', 'organizationId', 'appNotificationId'];
       }
 
-      return ['sessionId', 'createdAt', 'user.type', 'type', 'app.name', 'user.email', 'dataString'];
+      return ['sessionId', 'createdAt', 'user.type', 'type', 'typeDescription', 'app.name', 'user.email', 'dataString'];
     },
     getData() {
       setUIIsLoading(true);
