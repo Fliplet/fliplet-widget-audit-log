@@ -83,7 +83,8 @@ export const columns = [
     name: 'User',
     prop: 'user.email',
     sortProp: 'user.email',
-    searchable: true
+    searchable: true,
+    placeholder: 'email or id:123'
   },
   {
     name: 'Session ID',

@@ -18004,7 +18004,10 @@ var render = function () {
                   : col.searchable
                   ? _c("input", {
                       staticClass: "filter",
-                      attrs: { type: "text" },
+                      attrs: {
+                        type: "text",
+                        placeholder: col.placeholder || "",
+                      },
                       on: {
                         click: function ($event) {
                           $event.stopPropagation()
@@ -18054,6 +18057,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _config_sample_data__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(498);
 /* harmony import */ var _config_log_table__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(499);
 /* harmony import */ var _libs_logs__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(501);
+//
 //
 //
 //
@@ -18218,7 +18222,15 @@ __webpack_require__.r(__webpack_exports__);
 
               case 'User':
                 {
-                  // Regular expression to match email string to filter
+                  // Support `id:<n>` syntax → filter directly on userId
+                  var userIdMatch = value.match(/^id:\s*(\d+)\s*$/i);
+
+                  if (userIdMatch) {
+                    where.userId = parseInt(userIdMatch[1], 10);
+                    break;
+                  } // Regular expression to match email string to filter
+
+
                   var regExToMatchEmailStr = '([-a-zA-Z0-9@:%_\\+.~#?&//=]*)';
                   var impersonateUserEmails = value.match(new RegExp("^".concat(regExToMatchEmailStr, " as ").concat(regExToMatchEmailStr, "$"), 'i'));
                   var impersonateUserStartAsEmail = value.match(new RegExp("^as ".concat(regExToMatchEmailStr, "$"), 'i'));
@@ -19133,7 +19145,8 @@ var columns = [{
   name: 'User',
   prop: 'user.email',
   sortProp: 'user.email',
-  searchable: true
+  searchable: true,
+  placeholder: 'email or id:123'
 }, {
   name: 'Session ID',
   prop: 'sessionId',
