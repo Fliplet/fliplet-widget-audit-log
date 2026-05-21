@@ -48,8 +48,8 @@ function escapeHtml(unsafe = '') {
 
 export const userTypes = [
   { value: '', label: 'All categories' },
-  { value: 'app', label: 'Apps/Integrations' },
-  { value: 'appAction', label: 'App Actions' },
+  { value: 'app', label: 'Projects/Integrations' },
+  { value: 'appAction', label: 'Actions' },
   { value: 'studio', label: 'Fliplet Studio/Viewer' }
 ];
 
@@ -74,7 +74,7 @@ export const columns = [
     searchable: true
   },
   {
-    name: 'App',
+    name: 'Project',
     prop: 'app.name',
     sortProp: 'app.name',
     searchable: true
