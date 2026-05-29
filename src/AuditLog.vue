@@ -3,7 +3,7 @@
     <div :class="{ 'is-loading': isLoading }" v-show="isInitialized">
       <div class="alert alert-info">
         <p>
-          <strong>View detailed Studio and app usage details</strong><br>See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.
+          <strong>View detailed Studio and project usage details</strong><br>See exactly what has been happening within your project and immediately assess queries, such as the examples listed below.
         </p>
         <ol>
           <li><a href="https://help.fliplet.com/audit-log/#1">Which emails have been sent and what's their status?</a></li>
@@ -11,7 +11,7 @@
           <li><a href="https://help.fliplet.com/audit-log/#3">Who has recently logged in?</a></li>
           <li><a href="https://help.fliplet.com/audit-log/#4">Who has added/removed 2-factor authentication from their account?</a></li>
           <li><a href="https://help.fliplet.com/audit-log/#5">What files have been uploaded, moved, or deleted?</a></li>
-          <li><a href="https://help.fliplet.com/audit-log/#6">What apps have been recently published and by who?</a></li>
+          <li><a href="https://help.fliplet.com/audit-log/#6">What projects have been recently published and by who?</a></li>
         </ol>
         <p>Our support site also contains <a href="https://help.fliplet.com/audit-log/">a full explanation of the feature</a> and <a href="https://help.fliplet.com/audit-log-dictionary/">an explanation of different log types</a>.</p>
         <p>If you'd like to monitor audit logs and configure alerts with your own software, please <a href="https://developers.fliplet.com/API/core/organizations.html#audit-logs">review our technical documentation</a>.</p>

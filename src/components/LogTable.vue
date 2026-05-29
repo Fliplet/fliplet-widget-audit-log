@@ -151,7 +151,7 @@ export default {
               case 'Log type':
                 where.type = { $iLike: `%${value}%` };
                 break;
-              case 'App':
+              case 'Project':
                 where.app = { name: { $iLike: `%${value}%` } };
                 break;
 
