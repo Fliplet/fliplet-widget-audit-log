@@ -26,6 +26,7 @@ import DateDropdown from './DateDropdown';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
 import { setDates, setDateRange, getDateRange, getInitialDates, getInitialDateRange } from '../store';
+import { writeHash } from '../libs/permalink';
 import { dateRanges } from '../config/dates';
 import 'vue2-daterange-picker/dist/vue2-daterange-picker.css';
 
@@ -143,6 +144,8 @@ export default {
         startDate: this.dateRange.startDate,
         endDate: this.dateRange.endDate
       });
+      // Custom dates → persist explicit start/end and clear any preset range
+      writeHash({ start: this.dateRange.startDate, end: this.dateRange.endDate, range: null });
       bus.$emit('loadData');
     },
     onDropdownChange(range) {
@@ -166,6 +169,8 @@ export default {
         startDate,
         endDate
       });
+      // Preset range → persist the range key and clear explicit start/end
+      writeHash({ range, start: null, end: null });
       bus.$emit('loadData');
     }
   }

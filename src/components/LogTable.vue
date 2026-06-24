@@ -35,6 +35,7 @@ import { getDates, setUIIsInitialized, setUIIsLoading,
 import { getLogs } from '../services/logs';
 import bus from '../libs/bus';
 import { trackEvent } from '../libs/tracking';
+import { writeHash } from '../libs/permalink';
 import sampleData from '../config/sample-data';
 import { columns, columnDefs, userTypes } from '../config/log-table';
 import { getUserTypeQuery, clampJSONData, toggleClamping, inspectData } from '../libs/logs';
@@ -389,10 +390,12 @@ export default {
 
       if (col && col.name === 'Log type') {
         setTypeFilter(sanitizedValue);
+        writeHash({ type: sanitizedValue || null });
       }
 
       if (col && col.name === 'Data') {
         setDataFilter(sanitizedValue);
+        writeHash({ data: sanitizedValue || null });
       }
 
       this.debouncedFilter(event, colIndex);
