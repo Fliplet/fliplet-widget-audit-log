@@ -93,12 +93,23 @@ export function getOrganizationId() {
   return state.organizationId || getWidgetData().organizationId;
 }
 
+// A filter is `null` until the user edits its input, so the value preset via
+// widget data applies. Once edited it holds the user's value, and an empty
+// string means the user cleared it: the preset must not come back.
 export function getTypeFilter() {
-  return state.filters.typeFilter || getWidgetData().typeFilter || null;
+  if (state.filters.typeFilter !== null) {
+    return state.filters.typeFilter || null;
+  }
+
+  return getWidgetData().typeFilter || null;
 }
 
 export function getDataFilter() {
-  return state.filters.dataFilter || getWidgetData().dataFilter || null;
+  if (state.filters.dataFilter !== null) {
+    return state.filters.dataFilter || null;
+  }
+
+  return getWidgetData().dataFilter || null;
 }
 
 export function initFiltersFromWidgetData() {
@@ -114,11 +125,11 @@ export function initFiltersFromWidgetData() {
 }
 
 export function setTypeFilter(value) {
-  state.filters.typeFilter = value || null;
+  state.filters.typeFilter = value || '';
 }
 
 export function setDataFilter(value) {
-  state.filters.dataFilter = value || null;
+  state.filters.dataFilter = value || '';
 }
 
 export function getInitialDateRange() {

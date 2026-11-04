@@ -17674,10 +17674,12 @@ var staticRenderFns = [
     var _c = _vm._self._c || _h
     return _c("div", { staticClass: "alert alert-info" }, [
       _c("p", [
-        _c("strong", [_vm._v("View detailed Studio and app usage details")]),
+        _c("strong", [
+          _vm._v("View detailed Studio and project usage details"),
+        ]),
         _c("br"),
         _vm._v(
-          "See exactly what has been happening within your app and immediately assess queries, such as the examples listed below.\n      "
+          "See exactly what has been happening within your project and immediately assess queries, such as the examples listed below.\n      "
         ),
       ]),
       _vm._v(" "),
@@ -17734,7 +17736,7 @@ var staticRenderFns = [
           _c(
             "a",
             { attrs: { href: "https://help.fliplet.com/audit-log/#6" } },
-            [_vm._v("What apps have been recently published and by who?")]
+            [_vm._v("What projects have been recently published and by who?")]
           ),
         ]),
       ]),
@@ -18208,7 +18210,7 @@ __webpack_require__.r(__webpack_exports__);
                 };
                 break;
 
-              case 'App':
+              case 'Project':
                 where.app = {
                   name: {
                     $iLike: "%".concat(value, "%")
@@ -18598,12 +18600,23 @@ function getAppName() {
 }
 function getOrganizationId() {
   return state.organizationId || getWidgetData().organizationId;
-}
+} // A filter is `null` until the user edits its input, so the value preset via
+// widget data applies. Once edited it holds the user's value, and an empty
+// string means the user cleared it: the preset must not come back.
+
 function getTypeFilter() {
-  return state.filters.typeFilter || getWidgetData().typeFilter || null;
+  if (state.filters.typeFilter !== null) {
+    return state.filters.typeFilter || null;
+  }
+
+  return getWidgetData().typeFilter || null;
 }
 function getDataFilter() {
-  return state.filters.dataFilter || getWidgetData().dataFilter || null;
+  if (state.filters.dataFilter !== null) {
+    return state.filters.dataFilter || null;
+  }
+
+  return getWidgetData().dataFilter || null;
 }
 function initFiltersFromWidgetData() {
   var wd = getWidgetData();
@@ -18617,10 +18630,10 @@ function initFiltersFromWidgetData() {
   }
 }
 function setTypeFilter(value) {
-  state.filters.typeFilter = value || null;
+  state.filters.typeFilter = value || '';
 }
 function setDataFilter(value) {
-  state.filters.dataFilter = value || null;
+  state.filters.dataFilter = value || '';
 }
 function getInitialDateRange() {
   return getWidgetData().dateRange || null;
@@ -19100,10 +19113,10 @@ var userTypes = [{
   label: 'All categories'
 }, {
   value: 'app',
-  label: 'Apps/Integrations'
+  label: 'Projects/Integrations'
 }, {
   value: 'appAction',
-  label: 'App Actions'
+  label: 'Actions'
 }, {
   value: 'studio',
   label: 'Fliplet Studio/Viewer'
@@ -19125,7 +19138,7 @@ var columns = [{
   format: 'code',
   searchable: true
 }, {
-  name: 'App',
+  name: 'Project',
   prop: 'app.name',
   sortProp: 'app.name',
   searchable: true
